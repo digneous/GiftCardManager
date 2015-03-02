@@ -78,7 +78,10 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dip"
-                android:text="Register New Account"/>
+                android:text="Register New Account"
+                android:clickable="true"
+                android:enabled="true"
+                android:onClick="registerNewAccount" />
             <!-- Link to Login Screen -->
             <TextView android:id="@+id/link_to_login"
                 android:layout_width="fill_parent"

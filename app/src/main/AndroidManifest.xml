@@ -16,9 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--  Entry for RegisterActivity.class -->
-        <activity android:name=".RegisterActivity"
-            android:label="Register New Account"></activity>
+        <!-- Entry for RegisterActivity.class -->
+        <activity
+            android:name=".RegisterActivity"
+            android:label="Register New Account" />
+        <activity
+            android:name=".HomePageActivity"
+            android:label="@string/title_activity_home_page" >
+        </activity>
     </application>
 
 </manifest>
