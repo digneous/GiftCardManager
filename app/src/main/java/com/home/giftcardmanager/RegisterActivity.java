@@ -32,7 +32,7 @@ public class RegisterActivity extends Activity {
 
     public void registerNewAccount(View view)
     {
-        Intent i = new Intent(getApplicationContext(), HomePageActivity.class);
+        //Intent i = new Intent(getApplicationContext(), HomePageActivity.class);
 
         String name    = ((EditText)findViewById(R.id.reg_fullname)).getText().toString() ;
         String emailId = ((EditText)findViewById(R.id.reg_email)).getText().toString() ;
