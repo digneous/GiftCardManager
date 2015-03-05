@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Sathish on 2/25/2015.
  */
@@ -26,16 +29,48 @@ public class DataBaseHelper extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table  IF NOT EXISTS CardUser(UserID Integer primary Key autoincrement, Name text not null, Email text not null, Password text not null,unique(Email) )");
+        db.execSQL("create table  IF NOT EXISTS Card(CardNumber Text primary Key , CardExpiryDate text not null, cvv text not null, balance Integer , status text not null, cardType text not null )");
         this.database = db;
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.v(this.getClass().toString(),"I am in upgrade()");
+        db.execSQL("create table  IF NOT EXISTS CardUser(UserID Integer primary Key autoincrement, Name text not null, Email text not null, Password text not null,unique(Email) )");
+        db.execSQL("create table  IF NOT EXISTS Card(CardNumber Text primary Key , CardExpiryDate text not null, cvv text not null, balance Integer , status text not null, cardType text not null )");
+        this.database = db;
     }
 
+    public long addCard(ContentValues values){
+
+        database = getWritableDatabase();
+        database.execSQL("create table  IF NOT EXISTS Card(CardNumber Text primary Key , CardExpiryDate text not null, cvv text not null, balance Integer , status text not null, cardType text not null )");
+        database = getWritableDatabase();
+        return database.insert("Card", null, values);
+
+    }
+
+    public List FetchCards(){
+
+        database = getReadableDatabase();
+        Cursor cardCursor = database.rawQuery("select * from Card", null);
+        List cardlist = new ArrayList();
+        Card card =null;
+        if (cardCursor!=null)
+        {
+            cardCursor.moveToFirst();
+            do {
+                card = new Card();
+                card.setCardNumber(cardCursor.getString(0));
+                card.setBalance(cardCursor.getInt(3));
+                cardlist.add(card);
+            } while (cardCursor.moveToNext());
+        }
+        return cardlist;
+    }
+
+
     public long addUser(ContentValues values){
-        boolean flag = false;
         database = getWritableDatabase();
         return database.insert("CardUser", "UserID", values);
 
