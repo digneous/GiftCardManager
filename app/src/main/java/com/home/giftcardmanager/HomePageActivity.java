@@ -1,6 +1,7 @@
 package com.home.giftcardmanager;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -31,22 +32,52 @@ public class HomePageActivity extends ActionBarActivity {
         TableRow row = null;
         TextView tv1 = null;
         TextView tv2 = null;
-        for (int i=0; i < list.size(); i++){
+
+        if(list.size()>0){
+            tv1 = new TextView(this);
+            tv2 = new TextView(this);
+
+            tv1.setText("Card Number");
+            tv2.setText("Balance");
+
+            tv1.setBackgroundColor(Color.LTGRAY);
+            tv1.setTextColor(Color.BLACK);
+            tv2.setBackgroundColor(Color.LTGRAY);
+            tv2.setTextColor(Color.BLACK);
+
+            row = new TableRow(this);
+
+            row.addView(tv1);
+            row.addView(tv2);
+            cardtable.addView(row);
+            for (int i=0; i < list.size(); i++){
 
                 card = (Card)list.get(i);
                 row = new TableRow(this);
                 tv1 = new TextView(this);
                 tv1.setTextSize(20);
                 tv1.setText(card.getCardNumber());
+                tv1.setTextColor(Color.RED);
 
                 tv2 = new TextView(this);
                 tv2.setTextSize(20);
-                tv2.setText("12.00"/*card.getBalance()*/);
+                tv2.setText(String.valueOf(card.getBalance()));
+                tv2.setTextColor(Color.RED);
 
+                if(i%2==1) {
+                    tv1.setBackgroundColor(Color.YELLOW);
+                    tv2.setBackgroundColor(Color.YELLOW);
+                }else{
+                    tv1.setBackgroundColor(Color.WHITE);
+                    tv2.setBackgroundColor(Color.WHITE);
+                }
                 row.addView(tv1);
                 row.addView(tv2);
                 cardtable.addView(row);
+            }
         }
+
+
 
 
        /* Intent intent = getIntent();
