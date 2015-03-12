@@ -24,6 +24,9 @@ public class CardDetails extends ActionBarActivity {
 
     public void saveCard(View view){
 
+        Intent intent = getIntent();
+        String email = intent.getStringExtra("EmailID").toString();
+
         String cardnumber    = ((EditText)findViewById(R.id.cardnumber)).getText().toString() ;
         String amount = ((EditText)findViewById(R.id.amount)).getText().toString() ;
         String cvv     = ((EditText)findViewById(R.id.cvv)).getText().toString() ;
@@ -38,6 +41,8 @@ public class CardDetails extends ActionBarActivity {
         values.put("balance",Integer.parseInt(amount));
         values.put("status","A");
         values.put("cardType","1");
+        values.put("Email", email);
+
 
         long isValid = helper.addCard(values);
 

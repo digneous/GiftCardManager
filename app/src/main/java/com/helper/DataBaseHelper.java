@@ -29,7 +29,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table  IF NOT EXISTS CardUser(UserID Integer primary Key autoincrement, Name text not null, Email text not null, Password text not null,unique(Email) )");
-        db.execSQL("create table  IF NOT EXISTS Card(CardNumber Text primary Key , CardExpiryDate text not null, cvv text not null, balance Integer , status text not null, cardType text not null )");
+        db.execSQL("create table  IF NOT EXISTS Card(CardNumber Text primary Key , CardExpiryDate text not null, cvv text not null, balance Integer , status text not null, cardType text not null, Email text not null  )");
         this.database = db;
     }
 
@@ -50,13 +50,13 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
     }
 
-    public List FetchCards(){
+    public List FetchCards(String EmailID){
 
         database = getReadableDatabase();
-        Cursor cardCursor = database.rawQuery("select * from Card", null);
+        Cursor cardCursor = database.rawQuery("select * from Card where Email = \"" +EmailID +"\"", null);
         List cardlist = new ArrayList();
         Card card =null;
-        if (cardCursor!=null)
+        if (cardCursor!=null&& cardCursor.getCount()>0)
         {
             cardCursor.moveToFirst();
             do {

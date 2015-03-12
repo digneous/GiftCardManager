@@ -51,6 +51,7 @@ public class RegisterActivity extends Activity {
         if(isValid>0){
             Intent i1 = new Intent(getApplicationContext(), HomePageActivity.class);
             i1.putExtra("UserName",name);
+            i1.putExtra("EmailID",emailId);
             startActivity(i1);
         }else{
             TextView msg = (TextView) this.findViewById(R.id.link_to_login);
