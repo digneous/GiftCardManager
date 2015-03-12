@@ -42,7 +42,7 @@ public class LoginActivity extends Activity {
 
         if(isValid){
             Intent i = new Intent(getApplicationContext(), HomePageActivity.class);
-            i.putExtra("UserName",emailId);
+            i.putExtra("EmailID",emailId);
             startActivity(i);
         }else{
             TextView msg = (TextView) this.findViewById(R.id.link_to_register);

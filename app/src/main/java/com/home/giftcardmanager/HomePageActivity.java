@@ -23,11 +23,13 @@ public class HomePageActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+        Intent intent = getIntent();
+        String email = intent.getStringExtra("EmailID").toString();
 
         TableLayout cardtable = (TableLayout) findViewById(R.id.cardtable);
 
         DataBaseHelper helper = new DataBaseHelper(getApplicationContext());
-        List list = helper.FetchCards();
+        List list = helper.FetchCards(email);
         Card card = null;
         TableRow row = null;
         TextView tv1 = null;
@@ -85,10 +87,14 @@ public class HomePageActivity extends ActionBarActivity {
         TextView tv = (TextView) this.findViewById(R.id.Name);
         tv.setTextSize(60);
         tv.setText(name);*/
+
     }
 
     public void saveCard(View view){
+        Intent intent = getIntent();
+        String email = intent.getStringExtra("EmailID").toString();
         Intent i1 = new Intent(getApplicationContext(), CardDetails.class);
+        i1.putExtra("EmailID", email);
         startActivity(i1);
     }
 
