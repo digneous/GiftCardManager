@@ -103,6 +103,8 @@
                 android:layout_height="wrap_content"
                 android:textColor="#372c24"
                 android:text="Card Expiry"/>
+
+
             <EditText android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
@@ -110,6 +112,30 @@
                 android:text="01/18"
                 android:singleLine="true"
                 android:id="@+id/expiry" />
+
+
+
+            <TextView android:layout_width="100dip"
+                android:layout_height="wrap_content"
+                android:textColor="#372c24"
+                android:text="Card Type"/>
+
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal">
+
+            <RadioGroup android:layout_width="match_parent"
+                android:layout_height="match_parent" android:id="@+id/Radiob">
+                <RadioButton android:layout_width="wrap_content"
+                    android:layout_height="match_parent" android:text="Gift" android:id="@+id/Gift"  android:checked="true"/>
+                <RadioButton android:layout_width="wrap_content"
+                    android:layout_height="match_parent" android:text="Use" android:id="@+id/Use" />
+            </RadioGroup>
+        </RelativeLayout>
+
+
             <!-- Save button -->
             <Button android:id="@+id/btnSave"
                 android:layout_width="fill_parent"

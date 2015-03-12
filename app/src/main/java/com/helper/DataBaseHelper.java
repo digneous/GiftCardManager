@@ -56,7 +56,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
         Cursor cardCursor = database.rawQuery("select * from Card", null);
         List cardlist = new ArrayList();
         Card card =null;
-        if (cardCursor!=null)
+        if (cardCursor!=null && cardCursor.getCount()>0)
         {
             cardCursor.moveToFirst();
             do {

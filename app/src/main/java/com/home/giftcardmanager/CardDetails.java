@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.helper.DataBaseHelper;
@@ -28,6 +29,16 @@ public class CardDetails extends ActionBarActivity {
         String amount = ((EditText)findViewById(R.id.amount)).getText().toString() ;
         String cvv     = ((EditText)findViewById(R.id.cvv)).getText().toString() ;
         String expdate = ((EditText)findViewById(R.id.expiry)).getText().toString() ;
+        String cardType = null;
+
+        RadioButton button1 = (RadioButton) findViewById(R.id.Gift);
+        boolean cardTypeFlag = button1.isChecked();
+        if(cardTypeFlag){
+            cardType = "G";
+        }else{
+            cardType = "U";
+        }
+
 
         DataBaseHelper helper = new DataBaseHelper(getApplicationContext());
         ContentValues values = new ContentValues();
@@ -37,7 +48,7 @@ public class CardDetails extends ActionBarActivity {
         values.put("cvv",cvv);
         values.put("balance",Integer.parseInt(amount));
         values.put("status","A");
-        values.put("cardType","1");
+        values.put("cardType",cardType);
 
         long isValid = helper.addCard(values);
 
