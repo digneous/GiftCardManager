@@ -29,6 +29,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table  IF NOT EXISTS CardUser(UserID Integer primary Key autoincrement, Name text not null, Email text not null, Password text not null,unique(Email) )");
+
         db.execSQL("create table  IF NOT EXISTS Card(CardNumber Text primary Key , CardExpiryDate text not null, cvv text not null, balance Integer , status text not null, cardType text not null, Email text not null  )");
         this.database = db;
     }
@@ -37,14 +38,14 @@ public class DataBaseHelper extends SQLiteOpenHelper
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.v(this.getClass().toString(),"I am in upgrade()");
         db.execSQL("create table  IF NOT EXISTS CardUser(UserID Integer primary Key autoincrement, Name text not null, Email text not null, Password text not null,unique(Email) )");
-        db.execSQL("create table  IF NOT EXISTS Card(CardNumber Text primary Key , CardExpiryDate text not null, cvv text not null, balance Integer , status text not null, cardType text not null )");
+        db.execSQL("create table  IF NOT EXISTS Card(CardNumber Text primary Key , CardExpiryDate text not null, cvv text not null, balance Integer , status text not null, cardType text not null ,Email text not null)");
         this.database = db;
     }
 
     public long addCard(ContentValues values){
 
         database = getWritableDatabase();
-        database.execSQL("create table  IF NOT EXISTS Card(CardNumber Text primary Key , CardExpiryDate text not null, cvv text not null, balance Integer , status text not null, cardType text not null )");
+        database.execSQL("create table  IF NOT EXISTS Card(CardNumber Text primary Key , CardExpiryDate text not null, cvv text not null, balance Integer , status text not null, cardType text not null,Email text not null )");
         database = getWritableDatabase();
         return database.insert("Card", null, values);
 
