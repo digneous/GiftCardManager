@@ -90,12 +90,9 @@
                     android:layout_height="match_parent"
                     android:textColor="#372c24"
                     android:text="To Card Number" />
-                <EditText android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:inputType="number"
-                    android:id="@+id/ToCardNumber"
-                    android:layout_gravity="right"/>
+                <Spinner
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/cardList" ></Spinner>
             </LinearLayout>
             <!--  Card cvv Label -->
         <LinearLayout

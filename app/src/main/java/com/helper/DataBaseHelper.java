@@ -54,7 +54,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
     public List FetchCards(String EmailID,String cardType){
 
         database = getReadableDatabase();
-        Cursor cardCursor = database.rawQuery("select * from Card where Email = \"" +EmailID +"\" and cardType =\""+cardType+"\"", null);
+        Cursor cardCursor = database.rawQuery("select * from Card where Email = \"" +EmailID +"\" and cardType =\""+cardType+"\" and status = 'A'", null);
         List cardlist = new ArrayList();
         Card card =null;
         if (cardCursor!=null&& cardCursor.getCount()>0)

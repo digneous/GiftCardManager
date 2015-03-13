@@ -58,7 +58,6 @@ public class CardDetailsActivity extends ActionBarActivity {
         values.put("balance",Integer.parseInt(amount));
         values.put("status","A");
         values.put("cardType",cardType);
-        values.put("cardType","1");
         values.put("Email", email);
 
 

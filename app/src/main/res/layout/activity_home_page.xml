@@ -62,7 +62,10 @@
         android:layout_height="wrap_content" android:text="Transfer" android:id="@+id/Transfer"
         android:layout_below="@+id/header"
         android:layout_toRightOf="@+id/AddCard"
-        android:layout_toEndOf="@+id/AddCard" />
+        android:layout_toEndOf="@+id/AddCard"
+        android:clickable="true"
+        android:enabled="true"
+        android:onClick="Transfer" />
 
     <Button
         android:layout_width="wrap_content"

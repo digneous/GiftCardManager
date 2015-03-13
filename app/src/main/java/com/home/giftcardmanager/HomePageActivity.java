@@ -19,12 +19,23 @@ import java.util.List;
 
 public class HomePageActivity extends ActionBarActivity {
 
+    public String emailID = null;
+
+    public void Transfer(View view){
+        Intent intent = new Intent(getApplicationContext(),TransferActivity.class);
+        intent.putExtra("EmailID", emailID);
+        startActivity(intent);
+        finish();
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         Intent intent = getIntent();
         String email = intent.getStringExtra("EmailID").toString();
+        this.emailID = email;
 
         TableLayout cardtable = (TableLayout) findViewById(R.id.cardtable);
 
@@ -92,9 +103,8 @@ public class HomePageActivity extends ActionBarActivity {
 
     public void saveCard(View view){
         Intent intent = getIntent();
-        String email = intent.getStringExtra("EmailID").toString();
         Intent i1 = new Intent(getApplicationContext(), CardDetailsActivity.class);
-        i1.putExtra("EmailID", email);
+        i1.putExtra("EmailID", emailID);
         startActivity(i1);
         finish();
     }
