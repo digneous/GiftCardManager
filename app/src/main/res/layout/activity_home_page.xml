@@ -15,6 +15,7 @@
         android:paddingTop="5dip"
         android:paddingBottom="5dip">
         <!-- Logo Start-->
+
         <ImageView android:src="@drawable/logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,28 +24,26 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" android:layout_alignParentBottom="true">
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/layout"
+        android:layout_below="@+id/header"
+        android:layout_above="@+id/footer">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add Card"
-            android:id="@+id/AddCard"
-            android:enabled="true"
-            android:clickable="true"
-            android:onClick="saveCard"
-            android:layout_below="@+id/header"
+
+        <TableLayout
+            android:layout_width="386dp"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/AddCard"
+            android:id="@+id/cardtable"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:layout_above="@+id/footer"
+            android:layout_marginTop="60dp">
 
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:text="Transfer" android:id="@+id/Transfer" />
+        </TableLayout>
 
     </LinearLayout>
-
 
     <!-- Footer Start -->
     <LinearLayout
@@ -54,19 +53,42 @@
         android:layout_height="90dip"
         android:background="@layout/footer_repeat"
         android:layout_alignParentBottom="true">
+
     </LinearLayout>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:text="Transfer" android:id="@+id/Transfer"
+        android:layout_below="@+id/header"
+        android:layout_toRightOf="@+id/AddCard"
+        android:layout_toEndOf="@+id/AddCard" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:text="Sign Out" android:id="@+id/SignOut"
+        android:layout_gravity="right"
+        android:onClick="signout"
+        android:layout_below="@+id/header"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Card"
+        android:id="@+id/AddCard"
+        android:enabled="true"
+        android:clickable="true"
+        android:onClick="saveCard"
+        android:layout_below="@+id/header"
+        android:layout_toRightOf="@+id/linearLayout"
+        android:layout_toEndOf="@+id/linearLayout" />
+
+
+
     <!-- Footer Ends -->
 
-
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/AddCard"
-        android:id="@+id/cardtable"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_above="@+id/footer">
-     </TableLayout>
 
 </RelativeLayout>
 

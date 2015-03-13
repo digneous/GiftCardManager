@@ -25,6 +25,8 @@ public class RegisterActivity extends Activity {
             public void onClick(View arg0) {
                 // Closing registration screen
                 // Switching to Login Screen/closing register screen
+                Intent i1 = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(i1);
                 finish();
             }
         });
@@ -53,6 +55,7 @@ public class RegisterActivity extends Activity {
             i1.putExtra("UserName",name);
             i1.putExtra("EmailID",emailId);
             startActivity(i1);
+            finish();
         }else{
             TextView msg = (TextView) this.findViewById(R.id.link_to_login);
             msg.setText("Email is already Registered. Please use a different Email ID...");
