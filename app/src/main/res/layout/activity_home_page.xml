@@ -22,6 +22,30 @@
         <!-- Logo Ends -->
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" android:layout_alignParentBottom="true">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Card"
+            android:id="@+id/AddCard"
+            android:enabled="true"
+            android:clickable="true"
+            android:onClick="saveCard"
+            android:layout_below="@+id/header"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:text="Transfer" android:id="@+id/Transfer" />
+
+    </LinearLayout>
+
+
     <!-- Footer Start -->
     <LinearLayout
         android:orientation="vertical"
@@ -33,17 +57,6 @@
     </LinearLayout>
     <!-- Footer Ends -->
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add Card"
-        android:id="@+id/AddCard"
-        android:enabled="true"
-        android:clickable="true"
-        android:onClick="saveCard"
-        android:layout_below="@+id/header"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
 
     <TableLayout
         android:layout_width="match_parent"
@@ -56,4 +69,6 @@
      </TableLayout>
 
 </RelativeLayout>
+
+
     </ScrollView>
