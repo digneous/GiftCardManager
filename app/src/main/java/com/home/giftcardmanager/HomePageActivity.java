@@ -96,6 +96,13 @@ public class HomePageActivity extends ActionBarActivity {
         Intent i1 = new Intent(getApplicationContext(), CardDetails.class);
         i1.putExtra("EmailID", email);
         startActivity(i1);
+        finish();
+    }
+
+    public void signout(View view){
+        Intent i1 = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(i1);
+        finish();
     }
 
     @Override

@@ -23,6 +23,12 @@ public class CardDetails extends ActionBarActivity {
         setContentView(R.layout.activity_card_details);
     }
 
+    public void signout(View view) {
+        Intent i1 = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(i1);
+        finish();
+    }
+
     public void saveCard(View view){
 
         Intent intent = getIntent();

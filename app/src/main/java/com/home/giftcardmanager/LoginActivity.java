@@ -27,6 +27,8 @@ public class LoginActivity extends Activity {
                 // Switching to Register screen
                 Intent i = new Intent(getApplicationContext(), RegisterActivity.class);
                 startActivity(i);
+                finish();
+
             }
         });
     }
@@ -44,6 +46,7 @@ public class LoginActivity extends Activity {
             Intent i = new Intent(getApplicationContext(), HomePageActivity.class);
             i.putExtra("EmailID",emailId);
             startActivity(i);
+            finish();
         }else{
             TextView msg = (TextView) this.findViewById(R.id.link_to_register);
             msg.setText("Incorrect Email ID/Password. Please try again...");
