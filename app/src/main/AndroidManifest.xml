@@ -25,7 +25,7 @@
             android:label="@string/title_activity_home_page" >
         </activity>
         <activity
-            android:name=".CardDetails"
+            android:name=".CardDetailsActivity"
             android:label="@string/title_activity_card_details" >
         </activity>
         <activity

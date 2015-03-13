@@ -29,7 +29,7 @@ public class HomePageActivity extends ActionBarActivity {
         TableLayout cardtable = (TableLayout) findViewById(R.id.cardtable);
 
         DataBaseHelper helper = new DataBaseHelper(getApplicationContext());
-        List list = helper.FetchCards(email);
+        List list = helper.FetchCards(email,"G");
         Card card = null;
         TableRow row = null;
         TextView tv1 = null;
@@ -93,7 +93,7 @@ public class HomePageActivity extends ActionBarActivity {
     public void saveCard(View view){
         Intent intent = getIntent();
         String email = intent.getStringExtra("EmailID").toString();
-        Intent i1 = new Intent(getApplicationContext(), CardDetails.class);
+        Intent i1 = new Intent(getApplicationContext(), CardDetailsActivity.class);
         i1.putExtra("EmailID", email);
         startActivity(i1);
         finish();

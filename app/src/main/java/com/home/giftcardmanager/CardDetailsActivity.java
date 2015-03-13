@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.helper.DataBaseHelper;
 
 
-public class CardDetails extends ActionBarActivity {
+public class CardDetailsActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +65,9 @@ public class CardDetails extends ActionBarActivity {
         long isValid = helper.addCard(values);
 
         if(isValid>0){
-            Intent i1 = new Intent(getApplicationContext(), HomePageActivity.class);
-            startActivity(i1);
+            intent = new Intent(getApplicationContext(), HomePageActivity.class);
+            intent.putExtra("EmailID",email);
+            startActivity(intent);
         }else{
             TextView msg = (TextView) this.findViewById(R.id.link_to_login);
             msg.setText("Email is already Registered. Please use a different Email ID...");
