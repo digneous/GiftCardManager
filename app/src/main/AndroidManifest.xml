@@ -28,6 +28,10 @@
             android:name=".CardDetails"
             android:label="@string/title_activity_card_details" >
         </activity>
+        <activity
+            android:name=".TransferActivity"
+            android:label="@string/title_activity_transfer" >
+        </activity>
     </application>
 
 </manifest>

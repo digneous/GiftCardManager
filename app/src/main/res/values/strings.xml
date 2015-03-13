@@ -6,5 +6,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_home_page">HomePageActivity</string>
     <string name="title_activity_card_details">CardDetails</string>
+    <string name="title_activity_transfer">TransferActivity</string>
 
 </resources>
