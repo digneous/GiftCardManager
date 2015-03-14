@@ -8,8 +8,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.helper.DataBaseHelper;
@@ -21,6 +25,25 @@ public class CardDetailsActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_details);
+
+        Spinner dropmon = (Spinner)findViewById(R.id.month);
+        String[] months = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
+        ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, months);
+        dropmon.setAdapter(adapter);
+
+        Spinner dropyear = (Spinner)findViewById(R.id.year);
+        String[] years = new String[]{"2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"};
+        ArrayAdapter adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, years);
+        dropyear.setAdapter(adapter2);
+    }
+
+    public void goback (View view) {
+        Intent intent = getIntent();
+        String email = intent.getStringExtra("EmailID").toString();
+        Intent i1 = new Intent(getApplicationContext(), HomePageActivity.class);
+        i1.putExtra("EmailID",email);
+        startActivity(i1);
+        finish();
     }
 
     public void signout(View view) {
@@ -28,6 +51,7 @@ public class CardDetailsActivity extends ActionBarActivity {
         startActivity(i1);
         finish();
     }
+
 
     public void saveCard(View view){
 
@@ -37,9 +61,15 @@ public class CardDetailsActivity extends ActionBarActivity {
         String cardnumber    = ((EditText)findViewById(R.id.cardnumber)).getText().toString() ;
         String amount = ((EditText)findViewById(R.id.amount)).getText().toString() ;
         String cvv     = ((EditText)findViewById(R.id.cvv)).getText().toString() ;
-        String expdate = ((EditText)findViewById(R.id.expiry)).getText().toString() ;
-        String cardType = null;
 
+        Spinner spinner1 = (Spinner)findViewById(R.id.month);
+        String month = spinner1.getSelectedItem().toString();
+
+        Spinner spinner2 = (Spinner)findViewById(R.id.year);
+        String year = spinner2.getSelectedItem().toString();
+
+        String cardType = null;
+        String expdate = month + "/" + year;
         RadioButton button1 = (RadioButton) findViewById(R.id.Gift);
         boolean cardTypeFlag = button1.isChecked();
         if(cardTypeFlag){
@@ -67,6 +97,10 @@ public class CardDetailsActivity extends ActionBarActivity {
             intent = new Intent(getApplicationContext(), HomePageActivity.class);
             intent.putExtra("EmailID",email);
             startActivity(intent);
+            Intent i1 = new Intent(getApplicationContext(), HomePageActivity.class);
+            i1.putExtra("EmailID",email);
+            startActivity(i1);
+            finish();
         }else{
             TextView msg = (TextView) this.findViewById(R.id.link_to_login);
             msg.setText("Email is already Registered. Please use a different Email ID...");

@@ -19,7 +19,8 @@
             <ImageView android:src="@drawable/logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dip"/>
+                android:layout_marginLeft="10dip"
+                android:layout_marginRight="5dp" />
             <!-- Logo Ends -->
         </LinearLayout>
         <!--  Header Ends -->
@@ -49,12 +50,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal">
-                <Button android:id="@+id/btnSave1"
+                <Button android:id="@+id/BkBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dip"
                     android:layout_gravity="left"
-                    android:text="Back"/>
+                    android:text="Back"
+                    android:onClick="goback" />
                 <Button android:id="@+id/btnSave2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -69,7 +71,9 @@
                     android:text="Sign Out"
                     android:layout_gravity="right"
                     android:onClick="signout"
-                    android:layout_marginLeft="100dp" />
+                    android:layout_marginLeft="100dp"
+                    android:clickable="true"
+                    android:enabled="true" />
 
 
             </LinearLayout>
@@ -82,9 +86,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
                 android:layout_marginBottom="20dip"
-                android:text="2222 3565 6767 7890"
                 android:singleLine="true"
-                android:id="@+id/cardnumber" />
+                android:id="@+id/cardnumber"
+                android:numeric="integer"
+                android:hint="enter card number" />
             <!--  Card Value Label -->
             <TextView android:layout_width="100dip"
                 android:layout_height="wrap_content"
@@ -94,9 +99,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
                 android:layout_marginBottom="20dip"
-                android:text="50"
                 android:singleLine="true"
-                android:id="@+id/amount" />
+                android:id="@+id/amount"
+                android:numeric="integer"
+                android:hint="enter amount" />
             <!--  Card cvv Label -->
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -106,25 +112,48 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
                 android:singleLine="true"
-                android:text="019"
-                android:id="@+id/cvv" />
+                android:id="@+id/cvv"
+                android:numeric="integer"
+                android:hint="4 digit security code" />
             <!--  Card Expiry Label -->
             <TextView android:layout_width="100dip"
                 android:layout_height="wrap_content"
                 android:textColor="#372c24"
-                android:text="Card Expiry"/>
+                android:text="Card Expiry"
+                android:layout_marginTop="20dp" />
 
-
+            <!--
             <EditText android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dip"
                 android:layout_marginBottom="20dip"
-                android:text="01/18"
                 android:singleLine="true"
-                android:id="@+id/expiry" />
+                android:id="@+id/expiry"
+                android:hint="enter card expiry in mm/dd" /> -->
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:layout_below="@id/cvv">
 
+            <Spinner
+                android:id="@+id/month"
+                android:layout_width="156dp"
+                android:layout_height="40dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown" />
 
+            <Spinner
+                android:id="@+id/year"
+                android:layout_width="156dp"
+                android:layout_height="40dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown"
+                android:layout_marginLeft="10dp" />
 
+        </LinearLayout>
             <TextView android:layout_width="100dip"
                 android:layout_height="wrap_content"
                 android:textColor="#372c24"
@@ -137,7 +166,9 @@
                 android:layout_gravity="center_horizontal">
 
             <RadioGroup android:layout_width="match_parent"
-                android:layout_height="match_parent" android:id="@+id/Radiob">
+                android:layout_height="match_parent" android:id="@+id/Radiob"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true">
                 <RadioButton android:layout_width="wrap_content"
                     android:layout_height="match_parent" android:text="Gift" android:id="@+id/Gift"  android:checked="true"/>
                 <RadioButton android:layout_width="wrap_content"
