@@ -42,25 +42,28 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dip"
-            android:layout_below="@id/header">
+            android:weightSum="1"
+            android:layout_below="@+id/header">
             <!--  Card Number Label -->
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal">
+                android:layout_height="wrap_content"
+                android:layout_weight="0.73">
                 <Button android:id="@+id/btnTransfer"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:layout_marginTop="10dip"
-                    android:layout_gravity="left"
-                    android:text="Back"/>
+                    android:text="Back"
+                    android:layout_marginBottom="20dp"
+                    android:onClick="gobackxfr" />
                 <Button android:id="@+id/SignOut"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:text="Sign Out"
-                    android:layout_marginLeft="180dp" />
+                    android:layout_marginLeft="180dp"
+                    android:onClick="signoutxfr"
+                    android:layout_marginBottom="20dp" />
 
             </LinearLayout>
 
@@ -73,7 +76,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_gravity="bottom"
                     android:textColor="#372c24"
-                    android:text="Transfer Amount"/>
+                    android:text="Transfer Amount" />
                 <EditText android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
@@ -90,10 +93,12 @@
                 <TextView android:layout_width="150dp"
                     android:layout_height="match_parent"
                     android:textColor="#372c24"
-                    android:text="To Card Number" />
+                    android:text="To Card Number"
+                    android:layout_marginTop="20dp" />
                 <Spinner
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/cardList" ></Spinner>
+                    android:layout_height="wrap_content" android:id="@+id/cardList"
+                    android:layout_marginTop="20dp"></Spinner>
             </LinearLayout>
             <!--  Card cvv Label -->
         <LinearLayout
@@ -143,7 +148,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_marginTop="10dip"
-                android:text="Transfer"/>
+                android:text="Transfer"
+                android:layout_marginLeft="20dp" />
 
         </LinearLayout>
 

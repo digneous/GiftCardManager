@@ -79,6 +79,7 @@ public class CardDetailsActivity extends ActionBarActivity {
         }
 
 
+
         DataBaseHelper helper = new DataBaseHelper(getApplicationContext());
         ContentValues values = new ContentValues();
 
