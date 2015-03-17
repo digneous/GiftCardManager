@@ -35,6 +35,8 @@
             android:layout_alignParentBottom="true">
         </LinearLayout>
         <!-- Footer Ends -->
+
+
         <!-- Card Details Form -->
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -43,14 +45,14 @@
             android:layout_height="wrap_content"
             android:padding="10dip"
             android:layout_below="@id/header">
-            <!--  Card Number Label -->
+
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal">
-                <Button android:id="@+id/btnTransfer"
+                <Button android:id="@+id/btnBack"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_marginTop="10dip"
@@ -64,6 +66,8 @@
 
             </LinearLayout>
 
+
+            <!--  Card Number Label -->
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -83,9 +87,9 @@
             </LinearLayout>
 
             <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:weightSum="1">
                 <TextView android:layout_width="150dp"
                     android:layout_height="match_parent"
@@ -95,57 +99,77 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" android:id="@+id/cardList" ></Spinner>
             </LinearLayout>
-            <!--  Card cvv Label -->
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:weightSum="1">
-            <TextView android:layout_width="150dp"
-                android:layout_height="match_parent"
-                android:textColor="#372c24"
-                android:text="Comments" />
-            <EditText android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_gravity="right"
-                android:id="@+id/Comments" />
 
-            <TableLayout
+            <!--  Card cvv Label -->
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/FromCardTable"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_above="@+id/btnCancel">
-            </TableLayout>
+                android:weightSum="1">
+                <TextView android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:textColor="#372c24"
+                    android:text="Comments"
+                    android:layout_gravity="bottom" />
+                <EditText android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_gravity="right"
+                    android:id="@+id/Comments" />
 
-        </LinearLayout>
+            </LinearLayout>
             <!--  Card Expiry Label -->
+
+
             <!-- Save button -->
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:weightSum="1">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="1">
 
-        <Button android:id="@+id/btnCancel"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dip"
-                android:layout_marginLeft="150dp"
-                android:text="Cancel"
-                android:clickable="true"
-                android:enabled="true"
-                android:onClick="saveCard" />
-            <!-- Delete button -->
-            <Button android:id="@+id/btnAmtTransfer"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dip"
-                android:text="Transfer"/>
+                <Button android:id="@+id/btnCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dip"
+                    android:layout_marginLeft="150dp"
+                    android:text="Cancel"
+                    android:clickable="true"
+                    android:enabled="true"
+                    android:onClick="saveCard" />
+                <!-- Delete button -->
+                <Button android:id="@+id/btnAmtTransfer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dip"
+                    android:text="Transfer"
+                    android:clickable="true"
+                    android:enabled="true"
+                    android:onClick="displayTable" />
 
-        </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:text="" android:id="@+id/msg" />
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/FromCardTable"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_above="@+id/btnCancel">
+                </TableLayout>
+
+
+            </LinearLayout>
 
         </LinearLayout>
         <!-- Card Details Form Ends -->

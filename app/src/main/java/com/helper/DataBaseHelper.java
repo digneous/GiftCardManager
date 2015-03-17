@@ -101,4 +101,24 @@ public class DataBaseHelper extends SQLiteOpenHelper
         }
         return flag;
     }
+
+
+    public boolean isAmountValid(int userKeyedAmount, String email){
+        boolean flag = false;
+        database = getReadableDatabase();
+        int inAmount = 0;
+        Cursor cardCursor = database.rawQuery("select sum(balance) as Balance from Card where Email = \"" +email +"\" and cardType ='G' and status = 'A' ", null);
+
+        Log.v("DBHelper","column names :"+cardCursor.getColumnNames().toString());
+        Log.v("DBHelper","column names(0) :"+cardCursor.getColumnName(0));
+        cardCursor.moveToFirst();
+        inAmount = cardCursor.getInt(0);
+
+        if(userKeyedAmount>inAmount){
+            flag = false;
+        }else
+            flag = true;
+
+        return flag;
+    }
 }

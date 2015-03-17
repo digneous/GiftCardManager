@@ -3,12 +3,30 @@ package com.helper;
 /**
  * Created by Sathish on 3/4/2015.
  */
-public class Card
+public class Card implements Comparable<Card>
 {
     private String cardNumber;
     private String cvv;
     private String expirydate;
     private int balance;
+    private int debitAmount;
+    private int balanceAfterDebit;
+
+    public int getDebitAmount() {
+        return debitAmount;
+    }
+
+    public void setDebitAmount(int debitAmount) {
+        this.debitAmount = debitAmount;
+    }
+
+    public int getBalanceAfterDebit() {
+        return balanceAfterDebit;
+    }
+
+    public void setBalanceAfterDebit(int balanceAfterDebit) {
+        this.balanceAfterDebit = balanceAfterDebit;
+    }
 
     public String getCvv() {
         return cvv;
@@ -59,5 +77,10 @@ public class Card
 
     public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
+    }
+
+    @Override
+    public int compareTo(Card card) {
+        return this.balance - card.getBalance();
     }
 }
