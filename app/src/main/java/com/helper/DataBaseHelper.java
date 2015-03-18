@@ -29,8 +29,8 @@ public class DataBaseHelper extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table  IF NOT EXISTS CardUser(UserID Integer primary Key autoincrement, Name text not null, Email text not null, Password text not null,unique(Email) )");
-
         db.execSQL("create table  IF NOT EXISTS Card(CardNumber Text primary Key , CardExpiryDate text not null, cvv text not null, balance Integer , status text not null, cardType text not null, Email text not null  )");
+        db.execSQL("create table  IF NOT EXISTS Transaction( TxnId integer primary key autoincrement, TxnDate text not null, cardNumber text not null, Amount Integer , TnxType text not null ,comment text not null )");
         this.database = db;
     }
 
@@ -39,7 +39,16 @@ public class DataBaseHelper extends SQLiteOpenHelper
         Log.v(this.getClass().toString(),"I am in upgrade()");
         db.execSQL("create table  IF NOT EXISTS CardUser(UserID Integer primary Key autoincrement, Name text not null, Email text not null, Password text not null,unique(Email) )");
         db.execSQL("create table  IF NOT EXISTS Card(CardNumber Text primary Key , CardExpiryDate text not null, cvv text not null, balance Integer , status text not null, cardType text not null ,Email text not null)");
+        db.execSQL("create table  IF NOT EXISTS Transaction( TxnId integer primary key autoincrement, TxnDate text not null, cardNumber text not null, Amount Integer , TnxType text not null ,comment text not null )");
         this.database = db;
+    }
+
+    public long saveTxn(ContentValues values){
+        database = getWritableDatabase();
+        database.execSQL("create table  IF NOT EXISTS Transaction( TxnId integer primary key autoincrement, TxnDate text not null, cardNumber text not null, Amount Integer , TnxType text not null ,comment text not null )");
+        database = getWritableDatabase();
+        return database.insert("Transaction", null, values);
+
     }
 
     public long addCard(ContentValues values){
