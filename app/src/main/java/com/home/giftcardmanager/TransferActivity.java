@@ -1,5 +1,6 @@
 package com.home.giftcardmanager;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
@@ -18,7 +19,10 @@ import android.widget.TextView;
 import com.helper.Card;
 import com.helper.DataBaseHelper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.TreeSet;
@@ -27,12 +31,12 @@ import java.util.TreeSet;
 public class TransferActivity extends ActionBarActivity {
 
     String email = null;
-
+    List list1 = new ArrayList();
 
     public List algorithm(List list, int transferAmount){
         int sum = 0;
         TreeSet<Card> set = new TreeSet<Card>();
-        List list1 = new ArrayList();
+
         Card cardObj = null;
         for(Object card : list){
             cardObj= (Card)card;
@@ -63,6 +67,48 @@ public class TransferActivity extends ActionBarActivity {
             }
         }
         return list1;
+    }
+
+
+    public void performTransfer(View view){
+
+        Spinner spinner1 = (Spinner)findViewById(R.id.cardList);
+        String toCard = spinner1.getSelectedItem().toString();
+        int amount = Integer.parseInt(((EditText) findViewById(R.id.TransferAmount)).getText().toString());
+        String comment = ((EditText)findViewById(R.id.Comments)).getText().toString() ;
+
+        Card card = null;
+        DataBaseHelper helper = new DataBaseHelper(getApplicationContext());
+        ContentValues values = new ContentValues();
+
+        Calendar cal = Calendar.getInstance();
+        Date date = cal.getTime();
+        String txnDate = new SimpleDateFormat("MM/dd/yyyy").format(date);
+
+        values.put("TxnDate",txnDate);
+        values.put("cardNumber",toCard);
+        values.put("Amount",amount);
+        values.put("TnxType","CR");
+        values.put("comment",comment);
+        values.put("Email",this.email);
+        helper.saveTxn(values);
+        helper.updateCardBalanceAndStatus(toCard,amount,"A");
+
+        for(Object obj : list1){
+            card = (Card)obj;
+            values.put("TxnDate","2/2/2014");
+            values.put("cardNumber",card.getCardNumber());
+            values.put("Amount",card.getDebitAmount());
+            values.put("TnxType","DR");
+            values.put("comment",comment);
+            values.put("Email",this.email);
+            helper.saveTxn(values);
+            helper.updateCardBalanceAndStatus(card.getCardNumber(),card.getBalanceAfterDebit(),card.getBalanceAfterDebit()==0?"C":"A");
+        }
+
+        Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);
+        intent.putExtra("EmailID",email);
+        startActivity(intent);
     }
 
     public void displayTable(View view){

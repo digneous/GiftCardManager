@@ -71,11 +71,20 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" android:text="Sign Out" android:id="@+id/SignOut"
-        android:layout_gravity="right"
         android:onClick="signout"
         android:layout_below="@+id/header"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_toRightOf="@+id/History" />
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:text="History" android:id="@+id/History"
+        android:layout_gravity="right"
+        android:onClick="history"
+        android:layout_below="@+id/header"
+        android:layout_toRightOf="@+id/Transfer"
+        android:clickable="true"
+        android:enabled="true" />
 
     <Button
         android:layout_width="wrap_content"
@@ -85,9 +94,7 @@
         android:enabled="true"
         android:clickable="true"
         android:onClick="saveCard"
-        android:layout_below="@+id/header"
-        android:layout_toRightOf="@+id/linearLayout"
-        android:layout_toEndOf="@+id/linearLayout" />
+        android:layout_below="@+id/header" />
 
 
 

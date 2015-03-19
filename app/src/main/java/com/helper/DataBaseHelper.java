@@ -30,7 +30,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table  IF NOT EXISTS CardUser(UserID Integer primary Key autoincrement, Name text not null, Email text not null, Password text not null,unique(Email) )");
         db.execSQL("create table  IF NOT EXISTS Card(CardNumber Text primary Key , CardExpiryDate text not null, cvv text not null, balance Integer , status text not null, cardType text not null, Email text not null  )");
-        db.execSQL("create table  IF NOT EXISTS Transaction( TxnId integer primary key autoincrement, TxnDate text not null, cardNumber text not null, Amount Integer , TnxType text not null ,comment text not null )");
+        db.execSQL("create table  IF NOT EXISTS CardTransaction(TxnId Integer primary Key autoincrement, TxnDate text not null, cardNumber text not null, Amount Integer , TnxType text not null ,comment text not null, Email text not null )");
         this.database = db;
     }
 
@@ -39,15 +39,15 @@ public class DataBaseHelper extends SQLiteOpenHelper
         Log.v(this.getClass().toString(),"I am in upgrade()");
         db.execSQL("create table  IF NOT EXISTS CardUser(UserID Integer primary Key autoincrement, Name text not null, Email text not null, Password text not null,unique(Email) )");
         db.execSQL("create table  IF NOT EXISTS Card(CardNumber Text primary Key , CardExpiryDate text not null, cvv text not null, balance Integer , status text not null, cardType text not null ,Email text not null)");
-        db.execSQL("create table  IF NOT EXISTS Transaction( TxnId integer primary key autoincrement, TxnDate text not null, cardNumber text not null, Amount Integer , TnxType text not null ,comment text not null )");
+        db.execSQL("create table  IF NOT EXISTS CardTransaction(TxnId Integer primary key autoincrement, TxnDate text not null, cardNumber text not null, Amount Integer , TnxType text not null ,comment text not null, Email text not null )");
         this.database = db;
     }
 
     public long saveTxn(ContentValues values){
         database = getWritableDatabase();
-        database.execSQL("create table  IF NOT EXISTS Transaction( TxnId integer primary key autoincrement, TxnDate text not null, cardNumber text not null, Amount Integer , TnxType text not null ,comment text not null )");
+        database.execSQL("create table  IF NOT EXISTS CardTransaction(TxnId Integer primary key autoincrement, TxnDate text not null, cardNumber text not null, Amount Integer , TnxType text not null ,comment text not null , Email text not null)");
         database = getWritableDatabase();
-        return database.insert("Transaction", null, values);
+        return database.insert("CardTransaction", null, values);
 
     }
 
@@ -57,7 +57,6 @@ public class DataBaseHelper extends SQLiteOpenHelper
         database.execSQL("create table  IF NOT EXISTS Card(CardNumber Text primary Key , CardExpiryDate text not null, cvv text not null, balance Integer , status text not null, cardType text not null,Email text not null )");
         database = getWritableDatabase();
         return database.insert("Card", null, values);
-
     }
 
     public List FetchCards(String EmailID,String cardType){
@@ -121,13 +120,46 @@ public class DataBaseHelper extends SQLiteOpenHelper
         Log.v("DBHelper","column names :"+cardCursor.getColumnNames().toString());
         Log.v("DBHelper","column names(0) :"+cardCursor.getColumnName(0));
         cardCursor.moveToFirst();
+        Log.v("DBHelper","Available Balance in DB = "+cardCursor.getInt(0));
         inAmount = cardCursor.getInt(0);
 
-        if(userKeyedAmount>inAmount){
+        if(userKeyedAmount>inAmount)
             flag = false;
-        }else
+        else
             flag = true;
 
         return flag;
+    }
+
+    public List FetchTransactionHistory(String EmailID){
+
+        database = getReadableDatabase();
+        Cursor TranHisCursor = database.rawQuery("select * from CardTransaction where Email = \"" +EmailID +"\"", null);
+        List transHistoryList = new ArrayList();
+        TransactionHistory transactionHistory =null;
+        if (TranHisCursor!=null&& TranHisCursor.getCount()>0)
+        {
+            TranHisCursor.moveToFirst();
+            do {
+
+//TxnId Integer primary key autoincrement, TxnDate text not null, cardNumber text not null, Amount Integer , TnxType text not null ,comment text not null , Email text not null
+                transactionHistory = new TransactionHistory();
+                transactionHistory.setTxnDate(TranHisCursor.getString(1));
+                transactionHistory.setTxnID(TranHisCursor.getInt(0));
+                transactionHistory.setCardNumber(TranHisCursor.getString(2));
+                transactionHistory.setComment(TranHisCursor.getString(5));
+                transactionHistory.setTxnType(TranHisCursor.getString(4));
+                transactionHistory.setAmount(TranHisCursor.getInt(3));
+
+                transHistoryList.add(transactionHistory);
+            } while (TranHisCursor.moveToNext());
+        }
+        return transHistoryList;
+    }
+
+
+    public void updateCardBalanceAndStatus(String card, int amount, String cardStatus){
+        database = getWritableDatabase();
+        database.execSQL("update card set balance =  "+amount+ ", status ='"+ cardStatus+"' where cardNumber ='"+card+"'");
     }
 }

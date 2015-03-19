@@ -98,9 +98,6 @@ public class CardDetailsActivity extends ActionBarActivity {
             intent = new Intent(getApplicationContext(), HomePageActivity.class);
             intent.putExtra("EmailID",email);
             startActivity(intent);
-            Intent i1 = new Intent(getApplicationContext(), HomePageActivity.class);
-            i1.putExtra("EmailID",email);
-            startActivity(i1);
             finish();
         }else{
             TextView msg = (TextView) this.findViewById(R.id.link_to_login);

@@ -32,6 +32,10 @@
             android:name=".TransferActivity"
             android:label="@string/title_activity_transfer" >
         </activity>
+        <activity
+            android:name=".TransactionHistoryActivity"
+            android:label="@string/title_activity_transaction_history" >
+        </activity>
     </application>
 
 </manifest>

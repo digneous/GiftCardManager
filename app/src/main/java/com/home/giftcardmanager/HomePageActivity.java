@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.helper.Card;
 import com.helper.DataBaseHelper;
+import com.helper.TransactionHistory;
 
 import java.util.List;
 
@@ -28,6 +29,12 @@ public class HomePageActivity extends ActionBarActivity {
         finish();
     }
 
+
+    public void history(View view){
+        Intent intent = new Intent(getApplicationContext(), TransactionHistoryActivity.class);
+        intent.putExtra("EmailID", emailID);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
