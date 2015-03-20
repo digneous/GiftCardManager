@@ -30,39 +30,42 @@
             android:layout_height="match_parent"
             android:id="@+id/layout"
             android:layout_below="@+id/header"
-            android:layout_above="@+id/footer">
+            android:layout_above="@+id/footer"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Back"
+                            android:id="@+id/Back"
+                            android:enabled="true"
+                            android:clickable="true"
+                            android:onClick="goback"
+                            android:layout_below="@+id/header"
+                    android:layout_marginLeft="10dp" />
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:text="Sign Out" android:id="@+id/SignOut"
+                    android:onClick="signout"
+                    android:layout_below="@+id/header"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginLeft="190dp" />
+
+            </LinearLayout>
 
             <ListView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="279dp"
                 android:id="@+id/TransactionHistorylistView"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true"
+                android:layout_weight="1.06" />
 
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:text="Sign Out" android:id="@+id/SignOut"
-                android:layout_gravity="right"
-                android:onClick="signout"
-                android:layout_below="@+id/header"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Back"
-                android:id="@+id/Back"
-                android:enabled="true"
-                android:clickable="true"
-                android:onClick="saveCard"
-                android:layout_below="@+id/header"/>
-
-</LinearLayout>
 
         </LinearLayout>
 

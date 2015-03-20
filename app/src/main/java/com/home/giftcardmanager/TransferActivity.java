@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TableLayout;
@@ -29,8 +30,9 @@ import java.util.TreeSet;
 
 
 public class TransferActivity extends ActionBarActivity {
-
-    String email = null;
+    public static Button TransaferBtn;
+    //declare a public string to store email id passed from previous screen
+    public String emailID = null;
     List list1 = new ArrayList();
 
     public List algorithm(List list, int transferAmount){
@@ -90,38 +92,46 @@ public class TransferActivity extends ActionBarActivity {
         values.put("Amount",amount);
         values.put("TnxType","CR");
         values.put("comment",comment);
-        values.put("Email",this.email);
+        values.put("Email",this.emailID);
         helper.saveTxn(values);
-        helper.updateCardBalanceAndStatus(toCard,amount,"A");
+        helper.updateCardBalanceAndStatus(toCard,amount,"U");
 
         for(Object obj : list1){
             card = (Card)obj;
-            values.put("TxnDate","2/2/2014");
+            values.put("TxnDate",txnDate);
             values.put("cardNumber",card.getCardNumber());
             values.put("Amount",card.getDebitAmount());
             values.put("TnxType","DR");
             values.put("comment",comment);
-            values.put("Email",this.email);
+            values.put("Email",this.emailID);
             helper.saveTxn(values);
             helper.updateCardBalanceAndStatus(card.getCardNumber(),card.getBalanceAfterDebit(),card.getBalanceAfterDebit()==0?"C":"A");
         }
 
         Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);
-        intent.putExtra("EmailID",email);
+        intent.putExtra("EmailID",emailID);
         startActivity(intent);
+        finish();
     }
 
     public void displayTable(View view){
 
+        EditText xframt = ((EditText)findViewById(R.id.TransferAmount));
+        if(xframt.getText().toString().length() == 0){
+            xframt.setError("Amount is required");
+            return;
+        }
         int amount = Integer.parseInt(((EditText) findViewById(R.id.TransferAmount)).getText().toString());
         DataBaseHelper helper = new DataBaseHelper(getApplicationContext());
-        boolean flag = helper.isAmountValid(amount,email);
+        boolean flag = helper.isAmountValid(amount,emailID);
         Log.v("TransferActivity","Is Amount Valid = "+flag);
+
+
         if(flag){
 
             TableLayout cardtable = (TableLayout) findViewById(R.id.FromCardTable);
             cardtable.removeAllViews();
-            List list = helper.FetchCards(email,"G");
+            List list = helper.FetchCards(emailID,"G");
             list = algorithm(list,amount);
             Card card = null;
             TableRow row = null;
@@ -137,11 +147,15 @@ public class TransferActivity extends ActionBarActivity {
                 tv3 = new TextView(this);
                 tv4 = new TextView(this);
 
+                tv1.setWidth(380);
+                tv2.setWidth(100);
+                tv3.setWidth(80);
+                tv4.setWidth(120);
 
                 tv1.setText("Card#");
-                tv2.setText("Bal");
+                tv2.setText("Cur Bal");
                 tv3.setText("Debit");
-                tv4.setText("BalAftDebit");
+                tv4.setText("Post bal");
 
                 tv1.setBackgroundColor(Color.LTGRAY);
                 tv1.setTextColor(Color.BLACK);
@@ -204,11 +218,14 @@ public class TransferActivity extends ActionBarActivity {
                 }
             }//end of for
 
-
+            Button TransaferBtn = (Button) findViewById(R.id.btnAmtTransfer) ;
+            TransaferBtn.setEnabled(true);
         }else{
             TextView msg = (TextView) this.findViewById(R.id.msg);
             msg.setText("InSufficient Balance!!!");
             msg.setTextColor(Color.RED);
+            Button TransaferBtn = (Button) findViewById(R.id.btnAmtTransfer) ;
+            TransaferBtn.setEnabled(false);
         }
     }
 
@@ -216,11 +233,15 @@ public class TransferActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transfer);
+        Button TransaferBtn = (Button) findViewById(R.id.btnAmtTransfer) ;
+        TransaferBtn.setEnabled(false);
 
         Intent intent = getIntent();
-        this.email = intent.getStringExtra("EmailID").toString();
+        String email = intent.getStringExtra("EmailID").toString();
+        this.emailID = email;
+
         DataBaseHelper helper = new DataBaseHelper(getApplicationContext());
-        List list = helper.FetchCards(email,"U");
+        List list = helper.FetchCards(emailID,"U");
         List<String> cardList = new ArrayList<String>();
         Card card = null;
         Spinner spinner = (Spinner) findViewById(R.id.cardList);
@@ -253,17 +274,22 @@ public class TransferActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void signoutxfr(View view) {
+    public void signout(View view) {
         Intent i1 = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(i1);
         finish();
     }
 
-    public void gobackxfr (View view) {
-        Intent intent = getIntent();
-        String email = intent.getStringExtra("EmailID").toString();
+    public void goback (View view) {
         Intent i1 = new Intent(getApplicationContext(), HomePageActivity.class);
-        i1.putExtra("EmailID",email);
+        i1.putExtra("EmailID",emailID);
+        startActivity(i1);
+        finish();
+    }
+
+    public void cancel (View view) {
+        Intent i1 = new Intent(getApplicationContext(), HomePageActivity.class);
+        i1.putExtra("EmailID",emailID);
         startActivity(i1);
         finish();
     }

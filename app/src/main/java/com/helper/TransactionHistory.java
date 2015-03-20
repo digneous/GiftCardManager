@@ -12,6 +12,7 @@ public class TransactionHistory {
     private int Amount;
     private String TxnType;
 
+
     public String getTxnType() {
         return TxnType;
     }
@@ -21,6 +22,7 @@ public class TransactionHistory {
     }
 
     @Override
+
     public String toString() {
         String amt = this.getTxnType().equals("DR")?"-":"+";
         amt = amt+String.valueOf(this.getAmount());

@@ -51,7 +51,9 @@
                 android:layout_marginTop="5dip"
                 android:layout_marginBottom="20dip"
                 android:singleLine="true"
-                android:id="@+id/login_emailId" />
+                android:id="@+id/login_emailId"
+                android:inputType="textEmailAddress"
+                android:hint="Enter your email" />
             <!--  Password Label -->
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -62,7 +64,8 @@
                 android:layout_marginTop="5dip"
                 android:singleLine="true"
                 android:password="true"
-                android:id="@+id/login_pwd" />
+                android:id="@+id/login_pwd"
+                android:hint="Enter your password" />
             <!-- Login button -->
             <Button android:id="@+id/btnLogin"
                 android:layout_width="fill_parent"

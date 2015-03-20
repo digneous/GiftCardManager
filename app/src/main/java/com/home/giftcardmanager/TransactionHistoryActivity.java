@@ -60,4 +60,20 @@ public class TransactionHistoryActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    public void signout(View view){
+        Intent i1 = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(i1);
+        finish();
+    }
+
+    public void goback (View view) {
+        Intent intent = getIntent();
+        String email = intent.getStringExtra("EmailID").toString();
+        Intent i1 = new Intent(getApplicationContext(), HomePageActivity.class);
+        i1.putExtra("EmailID",email);
+        startActivity(i1);
+        finish();
+    }
 }

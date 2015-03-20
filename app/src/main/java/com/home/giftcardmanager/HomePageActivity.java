@@ -22,6 +22,7 @@ public class HomePageActivity extends ActionBarActivity {
 
     public String emailID = null;
 
+    //on clicking Transfer button
     public void Transfer(View view){
         Intent intent = new Intent(getApplicationContext(),TransferActivity.class);
         intent.putExtra("EmailID", emailID);
@@ -29,11 +30,28 @@ public class HomePageActivity extends ActionBarActivity {
         finish();
     }
 
-
+    //on clicking History button
     public void history(View view){
         Intent intent = new Intent(getApplicationContext(), TransactionHistoryActivity.class);
         intent.putExtra("EmailID", emailID);
         startActivity(intent);
+        finish();
+    }
+
+    //on clicking Add Card button
+    public void saveCard(View view){
+        Intent intent = getIntent();
+        Intent i1 = new Intent(getApplicationContext(), CardDetailsActivity.class);
+        i1.putExtra("EmailID", emailID);
+        startActivity(i1);
+        finish();
+    }
+
+    //on clicking Sign Out button
+    public void signout(View view){
+        Intent i1 = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(i1);
+        finish();
     }
 
     @Override
@@ -56,6 +74,9 @@ public class HomePageActivity extends ActionBarActivity {
         if(list.size()>0){
             tv1 = new TextView(this);
             tv2 = new TextView(this);
+
+            tv1.setWidth(450);
+            tv2.setWidth(200);
 
             tv1.setText("Card Number");
             tv2.setText("Balance");
@@ -97,29 +118,6 @@ public class HomePageActivity extends ActionBarActivity {
             }
         }
 
-
-
-
-       /* Intent intent = getIntent();
-        String name ="Welcome "+ intent.getStringExtra("UserName").toString()+"!!!";
-        TextView tv = (TextView) this.findViewById(R.id.Name);
-        tv.setTextSize(60);
-        tv.setText(name);*/
-
-    }
-
-    public void saveCard(View view){
-        Intent intent = getIntent();
-        Intent i1 = new Intent(getApplicationContext(), CardDetailsActivity.class);
-        i1.putExtra("EmailID", emailID);
-        startActivity(i1);
-        finish();
-    }
-
-    public void signout(View view){
-        Intent i1 = new Intent(getApplicationContext(), LoginActivity.class);
-        startActivity(i1);
-        finish();
     }
 
     @Override

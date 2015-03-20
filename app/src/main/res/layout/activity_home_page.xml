@@ -33,14 +33,15 @@
 
 
         <TableLayout
-            android:layout_width="386dp"
+            android:layout_width="380dp"
             android:layout_height="match_parent"
             android:layout_below="@+id/AddCard"
             android:id="@+id/cardtable"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_above="@+id/footer"
-            android:layout_marginTop="60dp">
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="10dp">
 
         </TableLayout>
 
@@ -70,10 +71,11 @@
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:text="Sign Out" android:id="@+id/SignOut"
+        android:layout_height="wrap_content" android:text="SignOut" android:id="@+id/SignOut"
         android:onClick="signout"
         android:layout_below="@+id/header"
-        android:layout_toRightOf="@+id/History" />
+        android:layout_toRightOf="@+id/History"
+        android:layout_alignParentRight="true" />
 
 
     <Button
@@ -94,7 +96,8 @@
         android:enabled="true"
         android:clickable="true"
         android:onClick="saveCard"
-        android:layout_below="@+id/header" />
+        android:layout_below="@+id/header"
+        android:layout_alignBottom="@+id/Transfer" />
 
 
 

@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
+import com.helper.TransactionHistory;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +36,7 @@ public class DataBaseHelper extends SQLiteOpenHelper
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.v(this.getClass().toString(),"I am in upgrade()");
+        Log.v(this.getClass().toString(), "I am in upgrade()");
         db.execSQL("create table  IF NOT EXISTS CardUser(UserID Integer primary Key autoincrement, Name text not null, Email text not null, Password text not null,unique(Email) )");
         db.execSQL("create table  IF NOT EXISTS Card(CardNumber Text primary Key , CardExpiryDate text not null, cvv text not null, balance Integer , status text not null, cardType text not null ,Email text not null)");
         db.execSQL("create table  IF NOT EXISTS CardTransaction(TxnId Integer primary key autoincrement, TxnDate text not null, cardNumber text not null, Amount Integer , TnxType text not null ,comment text not null, Email text not null )");
@@ -78,6 +78,30 @@ public class DataBaseHelper extends SQLiteOpenHelper
         }
         return cardlist;
     }
+
+/**
+    public List FetchTransactionHistory(String EmailID){
+
+        database = getReadableDatabase();
+        Cursor TranHisCursor = database.rawQuery("select * from Transaction where Email = \"" +EmailID +"\"", null);
+        List TransHistoryList = new ArrayList();
+        TransactionHistory TransHistory =null;
+        if (TranHisCursor!=null&& TranHisCursor.getCount()>0)
+            {
+                TranHisCursor.moveToFirst();
+                do {
+                    TransHistory = new TransactionHistory();
+                    TransHistory.setTxnDate(TranHisCursor.getString(2));
+                    TransHistory.setTxnID(TranHisCursor.getInt(1));
+                    TransHistory.setCardNumber(TranHisCursor.getString(3));
+                    TransHistory.setComment(TranHisCursor.getString(6));
+                    TransHistory.setTnxT(TranHisCursor.getString(5));
+                    TransHistory.setAmount(TranHisCursor.getInt(4));
+                    TransHistoryList.add(TransHistory);
+                } while (TranHisCursor.moveToNext());
+            }
+        return TransHistoryList;
+    } */
 
 
     public long addUser(ContentValues values){

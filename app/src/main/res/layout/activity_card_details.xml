@@ -89,7 +89,9 @@
                 android:singleLine="true"
                 android:id="@+id/cardnumber"
                 android:numeric="integer"
-                android:hint="enter card number" />
+                android:hint="enter card number"
+                android:maxLength="16"
+                android:inputType="number" />
             <!--  Card Value Label -->
             <TextView android:layout_width="100dip"
                 android:layout_height="wrap_content"
@@ -102,7 +104,8 @@
                 android:singleLine="true"
                 android:id="@+id/amount"
                 android:numeric="integer"
-                android:hint="enter amount" />
+                android:hint="enter amount"
+                android:inputType="number" />
             <!--  Card cvv Label -->
             <TextView android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -114,7 +117,8 @@
                 android:singleLine="true"
                 android:id="@+id/cvv"
                 android:numeric="integer"
-                android:hint="4 digit security code" />
+                android:hint="4 digit security code"
+                android:password="true" />
             <!--  Card Expiry Label -->
             <TextView android:layout_width="100dip"
                 android:layout_height="wrap_content"
