@@ -8,12 +8,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.helper.Card;
 import com.helper.DataBaseHelper;
+import com.helper.TransactionHistory;
 
 import java.util.List;
 
@@ -33,15 +35,26 @@ public class TransactionHistoryActivity extends ActionBarActivity {
         DataBaseHelper helper = new DataBaseHelper(getApplicationContext());
         List TranHisList = helper.FetchTransactionHistory(email);
 
-        ArrayAdapter<String> TransHist = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, TranHisList);
-        listView = (ListView)findViewById(R.id.TransactionHistorylistView);
-        listView.setAdapter(TransHist);
+        if(TranHisList==null || TranHisList.size()==0){
+            TextView view =  ((TextView)findViewById(R.id.historyMsg)) ;
+            view.setText("You have not performed any Transfer Transactions!!");
+            view.setTextColor(Color.RED);
+            view.setTextSize(15);
+
+        }
+        else{
+            ArrayAdapter<String> TransHist = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, TranHisList);
+            listView = (ListView)findViewById(R.id.TransactionHistorylistView);
+            listView.setAdapter(TransHist);
+        }
+
+
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+        // Inflate the menu; this Tadds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_transaction_history, menu);
         return true;
     }
