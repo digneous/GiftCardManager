@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -93,8 +94,8 @@ public class TransferActivity extends ActionBarActivity {
         String txnDate = new SimpleDateFormat("MM/dd/yyyy").format(date);
 
         values.put("TxnDate",txnDate);
-        values.put("cardNumber",toCard);
-        values.put("Amount",amount);
+        values.put("cardNumber", toCard);
+        values.put("Amount", amount);
         values.put("TnxType","CR");
         values.put("comment",comment);
         values.put("Email",this.emailID);
@@ -162,6 +163,16 @@ public class TransferActivity extends ActionBarActivity {
                 tv3.setText("Debit");
                 tv4.setText("Post bal");
 
+                tv1.setLayoutParams(new TableRow.LayoutParams(125, ViewGroup.LayoutParams.WRAP_CONTENT));
+                tv2.setLayoutParams(new TableRow.LayoutParams(60, ViewGroup.LayoutParams.WRAP_CONTENT));
+                tv3.setLayoutParams(new TableRow.LayoutParams(60, ViewGroup.LayoutParams.WRAP_CONTENT));
+                tv4.setLayoutParams(new TableRow.LayoutParams(60, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+                tv2.setGravity(View.FOCUS_RIGHT);
+                tv3.setGravity(View.FOCUS_RIGHT);
+                tv4.setGravity(View.FOCUS_RIGHT);
+
+
                 tv1.setBackgroundColor(Color.LTGRAY);
                 tv1.setTextColor(Color.BLACK);
                 tv2.setBackgroundColor(Color.LTGRAY);
@@ -204,6 +215,16 @@ public class TransferActivity extends ActionBarActivity {
                     tv4.setTextColor(Color.RED);
 
 
+                    tv1.setLayoutParams(new TableRow.LayoutParams(125, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    tv2.setLayoutParams(new TableRow.LayoutParams(60, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    tv3.setLayoutParams(new TableRow.LayoutParams(60, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    tv4.setLayoutParams(new TableRow.LayoutParams(60, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+                    tv2.setGravity(View.FOCUS_RIGHT);
+                    tv3.setGravity(View.FOCUS_RIGHT);
+                    tv4.setGravity(View.FOCUS_RIGHT);
+
+
                     if(i%2==1) {
                         tv1.setBackgroundColor(Color.YELLOW);
                         tv2.setBackgroundColor(Color.YELLOW);
@@ -222,21 +243,6 @@ public class TransferActivity extends ActionBarActivity {
                     cardtable.addView(row);
                 }
             }//end of for
-
-            //hide virtual keyboard once the preview button is clicked
-            /**findViewById(R.id.btnAmtPreview).setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    // TODO Auto-generated method stub
-                    try  {
-                        InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-                    } catch (Exception e) {
-                        // TODO: handle exception
-                    }
-                }
-            }); */
 
             Button TransferBtn = (Button) findViewById(R.id.btnAmtTransfer) ;
             TransferBtn.setEnabled(true);
