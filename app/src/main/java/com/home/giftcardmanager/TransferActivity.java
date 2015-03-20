@@ -16,6 +16,9 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
+
 
 import com.helper.Card;
 import com.helper.DataBaseHelper;
@@ -30,7 +33,9 @@ import java.util.TreeSet;
 
 
 public class TransferActivity extends ActionBarActivity {
-    public static Button TransaferBtn;
+    public static Button TransferBtn;
+    public static Button PreviewBtn;
+
     //declare a public string to store email id passed from previous screen
     public String emailID = null;
     List list1 = new ArrayList();
@@ -218,14 +223,41 @@ public class TransferActivity extends ActionBarActivity {
                 }
             }//end of for
 
-            Button TransaferBtn = (Button) findViewById(R.id.btnAmtTransfer) ;
-            TransaferBtn.setEnabled(true);
+            //hide virtual keyboard once the preview button is clicked
+            /**findViewById(R.id.btnAmtPreview).setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    try  {
+                        InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    } catch (Exception e) {
+                        // TODO: handle exception
+                    }
+                }
+            }); */
+
+            Button TransferBtn = (Button) findViewById(R.id.btnAmtTransfer) ;
+            TransferBtn.setEnabled(true);
+            Button PreviewBtn = (Button) findViewById(R.id.btnAmtPreview) ;
+            PreviewBtn.setEnabled(false);
+
+        try  {
+            InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+
         }else{
             TextView msg = (TextView) this.findViewById(R.id.msg);
             msg.setText("InSufficient Balance!!!");
             msg.setTextColor(Color.RED);
-            Button TransaferBtn = (Button) findViewById(R.id.btnAmtTransfer) ;
-            TransaferBtn.setEnabled(false);
+            Button TransferBtn = (Button) findViewById(R.id.btnAmtTransfer) ;
+            TransferBtn.setEnabled(false);
+            Button PreviewBtn = (Button) findViewById(R.id.btnAmtPreview) ;
+            PreviewBtn.setEnabled(true);
         }
     }
 
@@ -233,8 +265,8 @@ public class TransferActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transfer);
-        Button TransaferBtn = (Button) findViewById(R.id.btnAmtTransfer) ;
-        TransaferBtn.setEnabled(false);
+        Button TransferBtn = (Button) findViewById(R.id.btnAmtTransfer) ;
+        TransferBtn.setEnabled(false);
 
         Intent intent = getIntent();
         String email = intent.getStringExtra("EmailID").toString();
@@ -287,10 +319,22 @@ public class TransferActivity extends ActionBarActivity {
         finish();
     }
 
-    public void cancel (View view) {
-        Intent i1 = new Intent(getApplicationContext(), HomePageActivity.class);
+    public void reset (View view) {
+        /**Intent i1 = new Intent(getApplicationContext(), HomePageActivity.class);
         i1.putExtra("EmailID",emailID);
         startActivity(i1);
-        finish();
+        finish(); */
+        EditText xfrAmt = (EditText) findViewById(R.id.TransferAmount);
+        xfrAmt.setText(null);
+        xfrAmt.setHint("Enter transfer amount");
+
+        EditText comments = (EditText) findViewById(R.id.Comments);
+        comments.setText(null);
+        comments.setHint("Enter Comments");
+
+        Button TransferBtn = (Button) findViewById(R.id.btnAmtTransfer) ;
+        TransferBtn.setEnabled(false);
+        Button PreviewBtn = (Button) findViewById(R.id.btnAmtPreview) ;
+        PreviewBtn.setEnabled(true);
     }
 }
