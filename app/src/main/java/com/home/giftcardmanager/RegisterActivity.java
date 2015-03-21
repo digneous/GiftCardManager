@@ -1,5 +1,4 @@
 package com.home.giftcardmanager;
-
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -108,7 +107,6 @@ public class RegisterActivity extends Activity {
                 } catch (Exception e) {
 
                 }
-                return;
             }
 
 
