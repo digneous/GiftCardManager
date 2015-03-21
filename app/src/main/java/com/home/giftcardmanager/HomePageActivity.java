@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -81,10 +82,20 @@ public class HomePageActivity extends ActionBarActivity {
             tv1.setText("Card Number");
             tv2.setText("Balance");
 
+<<<<<<< HEAD
             tv1.setBackgroundColor(Color.DKGRAY);
             tv1.setTextColor(Color.WHITE);
             tv2.setBackgroundColor(Color.DKGRAY);
             tv2.setTextColor(Color.WHITE);
+=======
+            tv1.setLayoutParams(new TableRow.LayoutParams(150, ViewGroup.LayoutParams.WRAP_CONTENT));
+            tv2.setGravity(View.FOCUS_RIGHT);
+
+            tv1.setBackgroundColor(Color.LTGRAY);
+            tv1.setTextColor(Color.BLACK);
+            tv2.setBackgroundColor(Color.LTGRAY);
+            tv2.setTextColor(Color.BLACK);
+>>>>>>> origin/master
 
             row = new TableRow(this);
 
@@ -104,6 +115,10 @@ public class HomePageActivity extends ActionBarActivity {
                 tv2.setTextSize(20);
                 tv2.setText(String.valueOf(card.getBalance()));
                 tv2.setTextColor(Color.BLACK);
+
+                tv1.setLayoutParams(new TableRow.LayoutParams(150, ViewGroup.LayoutParams.WRAP_CONTENT));
+                tv2.setGravity(View.FOCUS_RIGHT);
+
 
                 if(i%2==1) {
                     tv1.setBackgroundColor(Color.LTGRAY);

@@ -42,7 +42,7 @@ public class CardDetailsActivity extends ActionBarActivity {
         dropmon.setAdapter(adapter);
 
         Spinner dropyear = (Spinner)findViewById(R.id.year);
-        String[] years = new String[]{"2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"};
+        String[] years = new String[]{"2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"};
         ArrayAdapter adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, years);
         dropyear.setAdapter(adapter2);
     }
@@ -63,6 +63,7 @@ public class CardDetailsActivity extends ActionBarActivity {
     }
 
 
+<<<<<<< HEAD
     public void reset (View view) {
 
         EditText c_no = (EditText) findViewById(R.id.cardnumber);
@@ -89,6 +90,16 @@ public class CardDetailsActivity extends ActionBarActivity {
         String cardnumber = ((EditText) findViewById(R.id.cardnumber)).getText().toString();
         String amount = ((EditText) findViewById(R.id.amount)).getText().toString();
         String cvv = ((EditText) findViewById(R.id.cvv)).getText().toString();
+=======
+    public void saveCard(View view){
+
+        Intent intent = getIntent();
+        String email = intent.getStringExtra("EmailID").toString();
+
+        String cardnumber    = ((EditText)findViewById(R.id.cardnumber)).getText().toString() ;
+        String amount = ((EditText)findViewById(R.id.amount)).getText().toString() ;
+        String cvv     = ((EditText)findViewById(R.id.cvv)).getText().toString() ;
+>>>>>>> origin/master
 
         Spinner spinner1 = (Spinner) findViewById(R.id.month);
         String month = spinner1.getSelectedItem().toString();
@@ -171,9 +182,12 @@ public class CardDetailsActivity extends ActionBarActivity {
             cardType = "U";
         }
 
+
+
         DataBaseHelper helper = new DataBaseHelper(getApplicationContext());
         ContentValues values = new ContentValues();
 
+<<<<<<< HEAD
         values.put("CardNumber", cardnumber);
         values.put("CardExpiryDate", expdate);
         values.put("cvv", cvv);
@@ -210,6 +224,28 @@ public class CardDetailsActivity extends ActionBarActivity {
 
             }
             return;
+=======
+        values.put("CardNumber",cardnumber);
+        values.put("CardExpiryDate",expdate);
+        values.put("cvv",cvv);
+        values.put("balance",Integer.parseInt(amount));
+        values.put("status","A");
+        values.put("cardType",cardType);
+        values.put("Email", email);
+
+
+        long isValid = helper.addCard(values);
+
+        if(isValid>0){
+            intent = new Intent(getApplicationContext(), HomePageActivity.class);
+            intent.putExtra("EmailID",email);
+            startActivity(intent);
+            finish();
+        }else{
+            TextView msg = (TextView) this.findViewById(R.id.link_to_login);
+            msg.setText("Email is already Registered. Please use a different Email ID...");
+            msg.setTextColor(Color.RED);
+>>>>>>> origin/master
         }
 }
 
