@@ -81,10 +81,10 @@ public class HomePageActivity extends ActionBarActivity {
             tv1.setText("Card Number");
             tv2.setText("Balance");
 
-            tv1.setBackgroundColor(Color.LTGRAY);
-            tv1.setTextColor(Color.BLACK);
-            tv2.setBackgroundColor(Color.LTGRAY);
-            tv2.setTextColor(Color.BLACK);
+            tv1.setBackgroundColor(Color.DKGRAY);
+            tv1.setTextColor(Color.WHITE);
+            tv2.setBackgroundColor(Color.DKGRAY);
+            tv2.setTextColor(Color.WHITE);
 
             row = new TableRow(this);
 
@@ -98,16 +98,16 @@ public class HomePageActivity extends ActionBarActivity {
                 tv1 = new TextView(this);
                 tv1.setTextSize(20);
                 tv1.setText(card.getCardNumber());
-                tv1.setTextColor(Color.RED);
+                tv1.setTextColor(Color.BLACK);
 
                 tv2 = new TextView(this);
                 tv2.setTextSize(20);
                 tv2.setText(String.valueOf(card.getBalance()));
-                tv2.setTextColor(Color.RED);
+                tv2.setTextColor(Color.BLACK);
 
                 if(i%2==1) {
-                    tv1.setBackgroundColor(Color.YELLOW);
-                    tv2.setBackgroundColor(Color.YELLOW);
+                    tv1.setBackgroundColor(Color.LTGRAY);
+                    tv2.setBackgroundColor(Color.LTGRAY);
                 }else{
                     tv1.setBackgroundColor(Color.WHITE);
                     tv2.setBackgroundColor(Color.WHITE);

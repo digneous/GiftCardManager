@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import java.util.regex.Matcher;
@@ -63,17 +64,18 @@ public class LoginActivity extends Activity {
             return;
         }
 
+        //verify if email format is correct
+        if (!isValidEmail(emailId)) {
+            emailEditText.setError("Invalid email format");
+            return;
+        }
+
         //verify blank password field
         if (pwd.length() == 0){
             pwdEditText.setError("Password is required");
             return;
         }
 
-        //verify if email format is correct
-        if (!isValidEmail(emailId)) {
-            emailEditText.setError("Invalid email format");
-            return;
-        }
 
         //once all validations pass, make a DB call to verify credentials
             DataBaseHelper helper = new DataBaseHelper(getApplicationContext());
@@ -85,9 +87,19 @@ public class LoginActivity extends Activity {
                 startActivity(i);
                 finish();
             }else{
-                TextView msg = (TextView) this.findViewById(R.id.link_to_register);
+                /**TextView msg = (TextView) this.findViewById(R.id.link_to_register);
                 msg.setText("Incorrect Email ID/Password. Please try again...");
-                msg.setTextColor(Color.RED);
+                msg.setTextColor(Color.RED); */
+                emailEditText.setError("EmailID/Password combination is incorrect");
+                pwdEditText.setError("EmailID/Password combination is incorrect");
+                emailEditText.requestFocus();
+                try  {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                } catch (Exception e) {
+
+                }
+
             }
     }
 }

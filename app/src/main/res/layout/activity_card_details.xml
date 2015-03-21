@@ -57,12 +57,13 @@
                     android:layout_gravity="left"
                     android:text="Back"
                     android:onClick="goback" />
-                <Button android:id="@+id/btnSave2"
+                <Button android:id="@+id/btnReset"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dip"
                     android:layout_gravity="end"
-                    android:text="Edit" />
+                    android:text="Reset"
+                    android:onClick="reset" />
 
                 <Button android:id="@+id/SignOut"
                     android:layout_width="wrap_content"
@@ -117,8 +118,9 @@
                 android:singleLine="true"
                 android:id="@+id/cvv"
                 android:numeric="integer"
-                android:hint="4 digit security code"
-                android:password="true" />
+                android:hint="enter 4 digit security code"
+                android:password="true"
+                android:maxLength="4" />
             <!--  Card Expiry Label -->
             <TextView android:layout_width="100dip"
                 android:layout_height="wrap_content"
