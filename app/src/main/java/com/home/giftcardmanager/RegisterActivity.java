@@ -53,6 +53,9 @@ public class RegisterActivity extends Activity {
         String emailId = emailEditText.getText().toString() ;
         String pwd     = pwdEditText.getText().toString() ;
 
+        nameEditText.setError(null);
+        emailEditText.setError(null);
+        pwdEditText.setError(null);
 
         // verify blank name field
         if (name.length() == 0) {

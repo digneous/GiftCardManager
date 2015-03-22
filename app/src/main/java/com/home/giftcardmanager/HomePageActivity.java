@@ -82,20 +82,10 @@ public class HomePageActivity extends ActionBarActivity {
             tv1.setText("Card Number");
             tv2.setText("Balance");
 
-<<<<<<< HEAD
             tv1.setBackgroundColor(Color.DKGRAY);
             tv1.setTextColor(Color.WHITE);
             tv2.setBackgroundColor(Color.DKGRAY);
             tv2.setTextColor(Color.WHITE);
-=======
-            tv1.setLayoutParams(new TableRow.LayoutParams(150, ViewGroup.LayoutParams.WRAP_CONTENT));
-            tv2.setGravity(View.FOCUS_RIGHT);
-
-            tv1.setBackgroundColor(Color.LTGRAY);
-            tv1.setTextColor(Color.BLACK);
-            tv2.setBackgroundColor(Color.LTGRAY);
-            tv2.setTextColor(Color.BLACK);
->>>>>>> origin/master
 
             row = new TableRow(this);
 

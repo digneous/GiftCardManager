@@ -176,9 +176,9 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true">
                 <RadioButton android:layout_width="wrap_content"
-                    android:layout_height="match_parent" android:text="Gift" android:id="@+id/Gift"  android:checked="true"/>
+                    android:layout_height="match_parent" android:text="Gift" android:focusableInTouchMode="true" android:id="@+id/Gift"  android:checked="true"/>
                 <RadioButton android:layout_width="wrap_content"
-                    android:layout_height="match_parent" android:text="Use" android:id="@+id/Use" />
+                    android:layout_height="match_parent" android:text="Use" android:focusableInTouchMode="true" android:id="@+id/Use" />
             </RadioGroup>
         </RelativeLayout>
 
