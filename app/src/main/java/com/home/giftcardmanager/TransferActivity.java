@@ -163,6 +163,15 @@ public class TransferActivity extends ActionBarActivity {
                 tv3.setText("Debit");
                 tv4.setText("Post bal");
 
+                tv1.setBackgroundColor(Color.DKGRAY);
+                tv1.setTextColor(Color.WHITE);
+                tv2.setBackgroundColor(Color.DKGRAY);
+                tv2.setTextColor(Color.WHITE);
+                tv3.setBackgroundColor(Color.DKGRAY);
+                tv3.setTextColor(Color.WHITE);
+                tv4.setBackgroundColor(Color.DKGRAY);
+                tv4.setTextColor(Color.WHITE);
+
                 tv1.setLayoutParams(new TableRow.LayoutParams(125, ViewGroup.LayoutParams.WRAP_CONTENT));
                 tv2.setLayoutParams(new TableRow.LayoutParams(60, ViewGroup.LayoutParams.WRAP_CONTENT));
                 tv3.setLayoutParams(new TableRow.LayoutParams(60, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -197,22 +206,22 @@ public class TransferActivity extends ActionBarActivity {
                     tv1 = new TextView(this);
                     tv1.setTextSize(20);
                     tv1.setText(card.getCardNumber());
-                    tv1.setTextColor(Color.RED);
+                    tv1.setTextColor(Color.BLACK);
 
                     tv2 = new TextView(this);
                     tv2.setTextSize(20);
                     tv2.setText(String.valueOf(card.getBalance()));
-                    tv2.setTextColor(Color.RED);
+                    tv2.setTextColor(Color.BLACK);
 
                     tv3 = new TextView(this);
                     tv3.setTextSize(20);
                     tv3.setText(String.valueOf(card.getDebitAmount()));
-                    tv3.setTextColor(Color.RED);
+                    tv3.setTextColor(Color.BLACK);
 
                     tv4 = new TextView(this);
                     tv4.setTextSize(20);
                     tv4.setText(String.valueOf(card.getBalanceAfterDebit()));
-                    tv4.setTextColor(Color.RED);
+                    tv4.setTextColor(Color.BLACK);
 
 
                     tv1.setLayoutParams(new TableRow.LayoutParams(125, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -226,10 +235,10 @@ public class TransferActivity extends ActionBarActivity {
 
 
                     if(i%2==1) {
-                        tv1.setBackgroundColor(Color.YELLOW);
-                        tv2.setBackgroundColor(Color.YELLOW);
-                        tv3.setBackgroundColor(Color.YELLOW);
-                        tv4.setBackgroundColor(Color.YELLOW);
+                        tv1.setBackgroundColor(Color.LTGRAY);
+                        tv2.setBackgroundColor(Color.LTGRAY);
+                        tv3.setBackgroundColor(Color.LTGRAY);
+                        tv4.setBackgroundColor(Color.LTGRAY);
                     }else{
                         tv1.setBackgroundColor(Color.WHITE);
                         tv2.setBackgroundColor(Color.WHITE);
@@ -244,6 +253,8 @@ public class TransferActivity extends ActionBarActivity {
                 }
             }//end of for
 
+            //hide virtual keyboard once the preview button is clicked
+
             Button TransferBtn = (Button) findViewById(R.id.btnAmtTransfer) ;
             TransferBtn.setEnabled(true);
             Button PreviewBtn = (Button) findViewById(R.id.btnAmtPreview) ;
@@ -253,7 +264,7 @@ public class TransferActivity extends ActionBarActivity {
             InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         } catch (Exception e) {
-            // TODO: handle exception
+
         }
 
         }else{
@@ -296,7 +307,6 @@ public class TransferActivity extends ActionBarActivity {
     }
 
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -331,6 +341,8 @@ public class TransferActivity extends ActionBarActivity {
         startActivity(i1);
         finish(); */
         EditText xfrAmt = (EditText) findViewById(R.id.TransferAmount);
+        TableLayout cardtable = (TableLayout) findViewById(R.id.FromCardTable);
+
         xfrAmt.setText(null);
         xfrAmt.setHint("Enter transfer amount");
 
@@ -342,5 +354,14 @@ public class TransferActivity extends ActionBarActivity {
         TransferBtn.setEnabled(false);
         Button PreviewBtn = (Button) findViewById(R.id.btnAmtPreview) ;
         PreviewBtn.setEnabled(true);
+
+        cardtable.removeAllViews();
+
+        /**
+        int count = cardtable.getChildCount();
+        for (int i=0;i<count;i++)
+            cardtable.removeView(cardtable.getChildAt(i)); */
+
+        xfrAmt.requestFocus();
     }
 }

@@ -1,11 +1,11 @@
 package com.home.giftcardmanager;
-
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 import java.util.regex.Matcher;
@@ -66,17 +66,18 @@ public class RegisterActivity extends Activity {
             return;
         }
 
+        //verify if email format is correct
+        if (!isValidEmail(emailId)) {
+            emailEditText.setError("Invalid Email");
+            return;
+        }
+
         //verify blank password field
         if (pwd.length() == 0){
             pwdEditText.setError("Password is required");
             return;
         }
 
-        //verify if email format is correct
-        if (!isValidEmail(emailId)) {
-            emailEditText.setError("Invalid Email");
-            return;
-        }
 
         //once all validations pass, make a DB call to register new user
             DataBaseHelper helper = new DataBaseHelper(getApplicationContext());
@@ -95,9 +96,17 @@ public class RegisterActivity extends Activity {
                 startActivity(i1);
                 finish();
             }else{
-                TextView msg = (TextView) this.findViewById(R.id.link_to_login);
+                /**TextView msg = (TextView) this.findViewById(R.id.link_to_login);
                 msg.setText("Email is already Registered. Please use a different Email ID...");
-                msg.setTextColor(Color.RED);
+                msg.setTextColor(Color.RED); */
+                emailEditText.setError("Email ID already exists");
+                emailEditText.requestFocus();
+                try  {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                } catch (Exception e) {
+
+                }
             }
 
 

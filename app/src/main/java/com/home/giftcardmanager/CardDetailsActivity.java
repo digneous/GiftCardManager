@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
@@ -34,21 +36,21 @@ public class CardDetailsActivity extends ActionBarActivity {
         String email = intent.getStringExtra("EmailID").toString();
         this.emailID = email;
 
-        Spinner dropmon = (Spinner)findViewById(R.id.month);
+        Spinner dropmon = (Spinner) findViewById(R.id.month);
         String[] months = new String[]{"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
         ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, months);
         dropmon.setAdapter(adapter);
 
-        Spinner dropyear = (Spinner)findViewById(R.id.year);
+        Spinner dropyear = (Spinner) findViewById(R.id.year);
         String[] years = new String[]{"2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"};
         ArrayAdapter adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, years);
         dropyear.setAdapter(adapter2);
     }
 
     //on clicking Back button
-    public void goback (View view) {
+    public void goback(View view) {
         Intent i1 = new Intent(getApplicationContext(), HomePageActivity.class);
-        i1.putExtra("EmailID",emailID);
+        i1.putExtra("EmailID", emailID);
         startActivity(i1);
         finish();
     }
@@ -61,51 +63,102 @@ public class CardDetailsActivity extends ActionBarActivity {
     }
 
 
-    public void saveCard(View view){
+    public void reset(View view) {
+
+        EditText c_no = (EditText) findViewById(R.id.cardnumber);
+        c_no.setText(null);
+        c_no.setHint("enter card number");
+
+        EditText amt = (EditText) findViewById(R.id.amount);
+        amt.setText(null);
+        amt.setHint("enter amount");
+
+        EditText cvv_no = (EditText) findViewById(R.id.cvv);
+        cvv_no.setText(null);
+        cvv_no.setHint("enter 4 digit security code");
+
+        c_no.requestFocus();
+
+    }
+
+
+    public void saveCard(View view) {
 
         Intent intent = getIntent();
         String email = intent.getStringExtra("EmailID").toString();
 
-        String cardnumber    = ((EditText)findViewById(R.id.cardnumber)).getText().toString() ;
-        String amount = ((EditText)findViewById(R.id.amount)).getText().toString() ;
-        String cvv     = ((EditText)findViewById(R.id.cvv)).getText().toString() ;
+        String cardnumber = ((EditText) findViewById(R.id.cardnumber)).getText().toString();
+        String amount = ((EditText) findViewById(R.id.amount)).getText().toString();
+        String cvv = ((EditText) findViewById(R.id.cvv)).getText().toString();
 
-        Spinner spinner1 = (Spinner)findViewById(R.id.month);
+        Spinner spinner1 = (Spinner) findViewById(R.id.month);
         String month = spinner1.getSelectedItem().toString();
 
-        Spinner spinner2 = (Spinner)findViewById(R.id.year);
+        Spinner spinner2 = (Spinner) findViewById(R.id.year);
         String year = spinner2.getSelectedItem().toString();
 
         //check entered expiry date if it is in the past
-        /**Calendar c = Calendar.getInstance();
+        Calendar c = Calendar.getInstance();
         int curmonth = c.get(Calendar.MONTH);
-        int curyear = c.get(Calendar.YEAR)
+        int curyear = c.get(Calendar.YEAR);
 
-        if ((Integer.valueOf(month)) < curmonth && (Integer.valueOf(year)) < curyear ){
+        /**
+         if ((Integer.valueOf(month)) < curmonth && (Integer.valueOf(year)) <= curyear ){
+         View selectedView = spinner2.getSelectedView();
+         if (selectedView != null && selectedView instanceof TextView) {
+         TextView selectedTextView = (TextView) selectedView;
+         selectedTextView.setError("Expiry date is in the past");
+         return;
+         }
 
-        } */
+         } */
+
+        if ((Integer.valueOf(year)) == curyear) {
+            if ((Integer.valueOf(month)) < curmonth) {
+                View selectedView = spinner1.getSelectedView();
+                if (selectedView != null && selectedView instanceof TextView) {
+                    TextView selectedTextView = (TextView) selectedView;
+                    selectedTextView.setError("Expiry date cannot be in the past");
+                    return;
+                }
+            }
+        }
+        if ((Integer.valueOf(year)) < curyear) {
+            View selectedView2 = spinner2.getSelectedView();
+            if (selectedView2 != null && selectedView2 instanceof TextView) {
+                TextView selectedTextView = (TextView) selectedView2;
+                selectedTextView.setError("Expiry date cannot be in the past");
+                return;
+            }
+        }
 
         //verify if cardnumber is blank
-        if (cardnumber.length() == 0){
+        if (cardnumber.length() == 0) {
             ((EditText) findViewById(R.id.cardnumber)).setError("Card Number is required");
             return;
         }
 
         //verify if cardnumber is valid
-        if (cardnumber.length() != 16){
+        if (cardnumber.length() < 15) {
             ((EditText) findViewById(R.id.cardnumber)).setError("Incorrect Card Number");
             return;
         }
 
         //verify if amount is blank
-        if (amount.length() == 0){
-            ((EditText)findViewById(R.id.amount)).setError("Amount is required");
+        if (amount.length() == 0) {
+            ((EditText) findViewById(R.id.amount)).setError("Amount is required");
             return;
         }
 
         //verify if cvv is blank
-        if (cvv.length() == 0){
-            ((EditText)findViewById(R.id.cvv)).setError("CVV is required");
+        if (cvv.length() == 0) {
+            ((EditText) findViewById(R.id.cvv)).setError("CVV is required");
+            return;
+        }
+
+        //verify if cvv length is incorrect
+        if (cvv.length() < 3) {
+            ((EditText) findViewById(R.id.cvv)).setError("CVV is invalid");
             return;
         }
 
@@ -113,49 +166,85 @@ public class CardDetailsActivity extends ActionBarActivity {
         String expdate = month + "/" + year;
         RadioButton button1 = (RadioButton) findViewById(R.id.Gift);
         boolean cardTypeFlag = button1.isChecked();
-        if(cardTypeFlag){
+        if (cardTypeFlag) {
             cardType = "G";
-        }else{
+        } else {
             cardType = "U";
         }
-
 
 
         DataBaseHelper helper = new DataBaseHelper(getApplicationContext());
         ContentValues values = new ContentValues();
 
-        values.put("CardNumber",cardnumber);
-        values.put("CardExpiryDate",expdate);
-        values.put("cvv",cvv);
-        values.put("balance",Integer.parseInt(amount));
-        values.put("status","A");
-        values.put("cardType",cardType);
-        values.put("Email", email);
+        values.put("CardNumber", cardnumber);
+        values.put("CardExpiryDate", expdate);
+        values.put("cvv", cvv);
+        values.put("balance", Integer.parseInt(amount));
+        values.put("status", "A");
+        values.put("cardType", cardType);
+        values.put("Email", emailID);
+
+        try {
+            long isValid = helper.addCard(values);
+
+            if (isValid > 0) {
+                intent = new Intent(getApplicationContext(), HomePageActivity.class);
+                intent.putExtra("EmailID", emailID);
+                startActivity(intent);
+                finish();
+            } else {
+                ((EditText) findViewById(R.id.cardnumber)).setError("Card Number already exists");
+                try {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                } catch (Exception e) {
+
+                }
+                return;
+            }
+        } catch (Exception e2) {
+            ((EditText) findViewById(R.id.cardnumber)).setError("Card Number already exists");
+            try {
+                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            } catch (Exception e3) {
+                return;
+            }
 
 
-        long isValid = helper.addCard(values);
+            values.put("CardNumber", cardnumber);
+            values.put("CardExpiryDate", expdate);
+            values.put("cvv", cvv);
+            values.put("balance", Integer.parseInt(amount));
+            values.put("status", "A");
+            values.put("cardType", cardType);
+            values.put("Email", email);
 
-        if(isValid>0){
-            intent = new Intent(getApplicationContext(), HomePageActivity.class);
-            intent.putExtra("EmailID",email);
-            startActivity(intent);
-            finish();
-        }else{
-            TextView msg = (TextView) this.findViewById(R.id.link_to_login);
-            msg.setText("Email is already Registered. Please use a different Email ID...");
-            msg.setTextColor(Color.RED);
+
+            long isValid = helper.addCard(values);
+
+            if (isValid > 0) {
+                intent = new Intent(getApplicationContext(), HomePageActivity.class);
+                intent.putExtra("EmailID", email);
+                startActivity(intent);
+                finish();
+            } else {
+                TextView msg = (TextView) this.findViewById(R.id.link_to_login);
+                msg.setText("Email is already Registered. Please use a different Email ID...");
+                msg.setTextColor(Color.RED);
+            }
         }
-}
+    }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu (Menu menu){
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_card_details, menu);
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected (MenuItem item){
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
@@ -168,4 +257,7 @@ public class CardDetailsActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
+
