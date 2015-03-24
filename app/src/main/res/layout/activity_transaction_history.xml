@@ -59,16 +59,15 @@
 
             </LinearLayout>
 
+            <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="419dp"
+                android:id="@+id/TransactionHistorylistView"
+                android:layout_centerVertical="true" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" android:id="@+id/historyMsg"/>
-
-            <ListView
-                android:layout_width="wrap_content"
-                android:layout_height="279dp"
-                android:id="@+id/TransactionHistorylistView"
-                android:layout_centerVertical="true"
-                android:layout_weight="1.06" />
 
 
         </LinearLayout>
