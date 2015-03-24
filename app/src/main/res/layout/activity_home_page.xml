@@ -41,7 +41,7 @@
             android:layout_alignParentEnd="true"
             android:layout_above="@+id/footer"
             android:layout_marginTop="60dp"
-            android:layout_marginLeft="10dp" android:stretchColumns="1">
+            android:layout_marginLeft="10dp" android:weightSum="5">
 
         </TableLayout>
 
@@ -71,7 +71,7 @@
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:text="SignOut" android:id="@+id/SignOut"
+        android:layout_height="wrap_content" android:text="LogOut" android:id="@+id/SignOut"
         android:onClick="signout"
         android:layout_below="@+id/header"
         android:layout_toRightOf="@+id/History"

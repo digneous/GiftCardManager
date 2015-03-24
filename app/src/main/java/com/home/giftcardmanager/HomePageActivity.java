@@ -76,8 +76,8 @@ public class HomePageActivity extends ActionBarActivity {
             tv1 = new TextView(this);
             tv2 = new TextView(this);
 
-            tv1.setWidth(450);
-            tv2.setWidth(200);
+            tv1.setLayoutParams(new ViewGroup.LayoutParams(4,ViewGroup.LayoutParams.WRAP_CONTENT));
+            tv2.setLayoutParams(new ViewGroup.LayoutParams(1,ViewGroup.LayoutParams.WRAP_CONTENT));
 
             tv1.setText("Card Number");
             tv2.setText("Balance");
@@ -106,8 +106,8 @@ public class HomePageActivity extends ActionBarActivity {
                 tv2.setText(String.valueOf(card.getBalance()));
                 tv2.setTextColor(Color.BLACK);
 
-                tv1.setLayoutParams(new TableRow.LayoutParams(150, ViewGroup.LayoutParams.WRAP_CONTENT));
-                tv2.setGravity(View.FOCUS_RIGHT);
+                tv1.setLayoutParams(new ViewGroup.LayoutParams(4,ViewGroup.LayoutParams.WRAP_CONTENT));
+                tv2.setLayoutParams(new ViewGroup.LayoutParams(1,ViewGroup.LayoutParams.WRAP_CONTENT));
 
 
                 if(i%2==1) {
