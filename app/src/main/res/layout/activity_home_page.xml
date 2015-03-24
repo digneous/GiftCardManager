@@ -71,7 +71,7 @@
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" android:text="SignOut" android:id="@+id/SignOut"
+        android:layout_height="wrap_content" android:text="LogOut" android:id="@+id/SignOut"
         android:onClick="signout"
         android:layout_below="@+id/header"
         android:layout_toRightOf="@+id/History"
