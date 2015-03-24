@@ -99,8 +99,18 @@ public class TransferActivity extends ActionBarActivity {
         values.put("TnxType","CR");
         values.put("comment",comment);
         values.put("Email",this.emailID);
-        helper.saveTxn(values);
+
+        long isValid1 = helper.saveTxn(values);
+
+        if(isValid1 <= 0){
+            TextView msg = (TextView) this.findViewById(R.id.msg);
+            msg.setText("Database error");
+            msg.setTextColor(Color.RED);
+            return;
+        }
+
         helper.updateCardBalanceAndStatus(toCard,amount,"U");
+
 
         for(Object obj : list1){
             card = (Card)obj;
@@ -110,8 +120,18 @@ public class TransferActivity extends ActionBarActivity {
             values.put("TnxType","DR");
             values.put("comment",comment);
             values.put("Email",this.emailID);
-            helper.saveTxn(values);
+
+            long isValid3 = helper.saveTxn(values);
+
+            if(isValid3 <= 0){
+                TextView msg = (TextView) this.findViewById(R.id.msg);
+                msg.setText("Database error");
+                msg.setTextColor(Color.RED);
+                return;
+            }
+
             helper.updateCardBalanceAndStatus(card.getCardNumber(),card.getBalanceAfterDebit(),card.getBalanceAfterDebit()==0?"C":"A");
+
         }
 
         Intent intent = new Intent(getApplicationContext(), HomePageActivity.class);
@@ -123,10 +143,13 @@ public class TransferActivity extends ActionBarActivity {
     public void displayTable(View view){
 
         EditText xframt = ((EditText)findViewById(R.id.TransferAmount));
+        xframt.setError(null);
+
         if(xframt.getText().toString().length() == 0){
             xframt.setError("Amount is required");
             return;
         }
+
         int amount = Integer.parseInt(((EditText) findViewById(R.id.TransferAmount)).getText().toString());
         DataBaseHelper helper = new DataBaseHelper(getApplicationContext());
         boolean flag = helper.isAmountValid(amount,emailID);
@@ -171,25 +194,6 @@ public class TransferActivity extends ActionBarActivity {
                 tv3.setTextColor(Color.WHITE);
                 tv4.setBackgroundColor(Color.DKGRAY);
                 tv4.setTextColor(Color.WHITE);
-
-                tv1.setLayoutParams(new TableRow.LayoutParams(125, ViewGroup.LayoutParams.WRAP_CONTENT));
-                tv2.setLayoutParams(new TableRow.LayoutParams(60, ViewGroup.LayoutParams.WRAP_CONTENT));
-                tv3.setLayoutParams(new TableRow.LayoutParams(60, ViewGroup.LayoutParams.WRAP_CONTENT));
-                tv4.setLayoutParams(new TableRow.LayoutParams(60, ViewGroup.LayoutParams.WRAP_CONTENT));
-
-                tv2.setGravity(View.FOCUS_RIGHT);
-                tv3.setGravity(View.FOCUS_RIGHT);
-                tv4.setGravity(View.FOCUS_RIGHT);
-
-
-                tv1.setBackgroundColor(Color.LTGRAY);
-                tv1.setTextColor(Color.BLACK);
-                tv2.setBackgroundColor(Color.LTGRAY);
-                tv2.setTextColor(Color.BLACK);
-                tv3.setBackgroundColor(Color.LTGRAY);
-                tv3.setTextColor(Color.BLACK);
-                tv4.setBackgroundColor(Color.LTGRAY);
-                tv4.setTextColor(Color.BLACK);
 
                 row = new TableRow(this);
 
@@ -253,8 +257,6 @@ public class TransferActivity extends ActionBarActivity {
                 }
             }//end of for
 
-            //hide virtual keyboard once the preview button is clicked
-
             Button TransferBtn = (Button) findViewById(R.id.btnAmtTransfer) ;
             TransferBtn.setEnabled(true);
             Button PreviewBtn = (Button) findViewById(R.id.btnAmtPreview) ;
@@ -268,13 +270,21 @@ public class TransferActivity extends ActionBarActivity {
         }
 
         }else{
-            TextView msg = (TextView) this.findViewById(R.id.msg);
+            /**TextView msg = (TextView) this.findViewById(R.id.msg);
             msg.setText("InSufficient Balance!!!");
-            msg.setTextColor(Color.RED);
+            msg.setTextColor(Color.RED); */
+            xframt.setError("Insufficient Balance");
+            xframt.requestFocus();
             Button TransferBtn = (Button) findViewById(R.id.btnAmtTransfer) ;
             TransferBtn.setEnabled(false);
             Button PreviewBtn = (Button) findViewById(R.id.btnAmtPreview) ;
             PreviewBtn.setEnabled(true);
+            try  {
+                InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+            } catch (Exception e) {
+
+            }
         }
     }
 

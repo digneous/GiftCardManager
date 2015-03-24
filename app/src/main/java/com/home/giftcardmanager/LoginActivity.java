@@ -58,6 +58,9 @@ public class LoginActivity extends Activity {
         String emailId = emailEditText.getText().toString() ;
         String pwd     = pwdEditText.getText().toString() ;
 
+        emailEditText.setError(null);
+        pwdEditText.setError(null);
+
         // verify blank email ID field
         if (emailId.length() == 0) {
             emailEditText.setError("EmailID is required");
