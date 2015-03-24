@@ -2,6 +2,7 @@ package com.home.giftcardmanager;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -159,7 +160,9 @@ public class TransferActivity extends ActionBarActivity {
         if(flag){
 
             TableLayout cardtable = (TableLayout) findViewById(R.id.FromCardTable);
-            cardtable.removeAllViews();
+            cardtable.removeAllViewsInLayout();
+
+
             List list = helper.FetchCards(emailID,"G");
             list = algorithm(list,amount);
             Card card = null;
@@ -291,6 +294,7 @@ public class TransferActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.activity_transfer);
         Button TransferBtn = (Button) findViewById(R.id.btnAmtTransfer) ;
         TransferBtn.setEnabled(false);
